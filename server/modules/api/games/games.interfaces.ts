@@ -40,4 +40,10 @@ export namespace Games {
     cordite: number;
     fuel: number;
   }
+
+  export interface Info {
+    factories: ArmoryFactories;
+    armoryItems: ArmoryItems;
+    resourceItems: ResourceItems;
+  }
 }
