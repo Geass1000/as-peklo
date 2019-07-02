@@ -1,3 +1,4 @@
+import { AuthToken } from './../../../core/auth/auth.interfaces';
 import { AuthService } from './../../../core/auth/auth.service';
 import * as _ from 'lodash';
 
@@ -21,7 +22,7 @@ export class GamesController {
   }
 
   @Nest.Post()
-  async signIn (@Nest.Body() signInDto: DTO.SignIn) {
+  async signIn (@Nest.Body() signInDto: DTO.SignIn): Promise<AuthToken> {
     const sid = await this.gamesService.signIn({
       uid: signInDto.uid,
       auth_key: signInDto.auth_key,
