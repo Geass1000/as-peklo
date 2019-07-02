@@ -1,19 +1,22 @@
 import * as Nest from '@nestjs/common';
 
 import { CacheModule } from './cache/cache.module';
+import { RequestModule } from './sevices/request/request.module';
 
-const nestCacheModule = Nest.CacheModule.register({
+const NestCacheModule = Nest.CacheModule.register({
   ttl: 0, max: 0,
 });
 
 @Nest.Global()
 @Nest.Module({
   imports: [
-    nestCacheModule,
+    NestCacheModule,
     CacheModule,
+    RequestModule,
   ],
   exports: [
-    nestCacheModule
+    NestCacheModule,
+    RequestModule,
   ],
 })
 export class CoreModule {}
