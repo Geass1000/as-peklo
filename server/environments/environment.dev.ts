@@ -8,4 +8,10 @@ export const environment: Interfaces.Environment = {
   nats: {
     url: Constants.Environment.Nats.Url,
   },
+  auth: {
+    secret: Constants.Environment.Auth.Secret,
+    signOptions: {
+      expiresIn: Constants.Environment.Auth.ExpiresIn,
+    },
+  },
 };

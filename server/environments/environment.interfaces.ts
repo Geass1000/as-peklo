@@ -1,4 +1,5 @@
 import * as Enums from '../shared/enums';
+import { JwtModuleOptions } from '@nestjs/jwt';
 
 export namespace Environment {
   export interface NatsOptions {
@@ -10,4 +11,5 @@ export interface Environment {
   mode: Enums.Environment;
   port: number;
   nats: Environment.NatsOptions;
+  auth: JwtModuleOptions
 }
