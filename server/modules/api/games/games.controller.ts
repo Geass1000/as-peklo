@@ -21,7 +21,7 @@ export class GamesController {
   async stub() {
   }
 
-  @Nest.Post()
+  @Nest.Post(`signin`)
   async signIn (@Nest.Body() signInDto: DTO.SignIn): Promise<AuthToken> {
     const sid = await this.gamesService.signIn({
       uid: signInDto.uid,
