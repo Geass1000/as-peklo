@@ -3,7 +3,7 @@ export namespace Games {
   export interface UserCredentials {
     uid: string;
     auth_key: string;
-    sid?: string;
+    sid: string;
   }
 
   export interface Contract {

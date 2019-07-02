@@ -13,6 +13,14 @@ export class User {
     public readonly auth_key: string,
     public readonly sid: string,
   ) {}
+
+  valueOf (): Interfaces.Games.UserCredentials {
+    return {
+      uid: this.uid,
+      auth_key: this.auth_key,
+      sid: this.sid,
+    }
+  }
 }
 
 export class GameInfo {
