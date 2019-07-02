@@ -1,3 +1,4 @@
+import { AuthService } from './../../../core/auth/auth.service';
 import * as _ from 'lodash';
 
 import { APIController, User } from './../../../decorators';
@@ -11,7 +12,8 @@ import * as DTO from './games.dto';
 @APIController(1, 'games')
 export class GamesController {
   constructor (
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private authService: AuthService<DTO.SignIn>,
   ) {}
 
   @Nest.Get()
@@ -25,9 +27,9 @@ export class GamesController {
       auth_key: signInDto.auth_key,
     });
 
-    return {
-      sid: sid
-    };
+    const user = new DTO.User(signInDto.uid, signInDto.auth_key, sid);
+
+    return this.authService.signIn(user);
   }
 
   @Nest.Get()
