@@ -1,4 +1,3 @@
-import * as Enums from '../shared/enums';
-import * as Interfaces from '../interfaces/environment.interfaces';
+import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = null;

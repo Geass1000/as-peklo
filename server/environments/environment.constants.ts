@@ -1,5 +1,5 @@
 
-export namespace Default {
+export namespace Environment {
   export const Port: number = 4321;
 
   export namespace Nats {

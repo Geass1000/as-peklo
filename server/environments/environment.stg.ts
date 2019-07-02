@@ -1,11 +1,11 @@
 import * as Enums from '../shared/enums';
-import * as Constants from '../constants';
-import * as Interfaces from '../interfaces/environment.interfaces';
+import * as Constants from './environment.constants';
+import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = {
   mode: Enums.Environment.Staging,
-  port: +process.env.PORT || Constants.Default.Port,
+  port: +process.env.PORT || Constants.Environment.Port,
   nats: {
-    url: process.env.NATS_URL || Constants.Default.Nats.Url,
+    url: process.env.NATS_URL || Constants.Environment.Nats.Url,
   },
 };
