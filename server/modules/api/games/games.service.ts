@@ -5,11 +5,12 @@ import * as _ from 'lodash';
 
 import { Games } from './games.interfaces';
 
+import * as DTO from './games.dto';
 import { RequestService } from '../../../core/sevices/request';
 import * as RequestInterfaces from '../../../core/sevices/request/request.interfaces';
 import * as RequestEnums from '../../../core/sevices/request/request.enums';
 
-type ContractId = number;
+type ContractId = string;
 type SId = string;
 
 @Nest.Injectable()
@@ -18,7 +19,7 @@ export class GamesService {
     private requestService: RequestService
   ) {}
 
-  async signIn(authCreds: Games.UserCredentials): Promise<SId> {
+  async signIn (authCreds: DTO.SignIn): Promise<SId> {
     const reqData = `<auth uid="${authCreds.uid}" auth_key="${authCreds.auth_key}"/>`;
 
     const options = this.getReqOptions('auth', reqData);
@@ -33,7 +34,7 @@ export class GamesService {
     return _.get(respData, 'response.auth_ok.sid');
   }
 
-  async getGameInfo(userCreds: Games.UserCredentials) {
+  async getGameInfo (userCreds: DTO.User) {
     const reqData = `<get_game_info
       uid="${userCreds.uid}"
       auth_key="${userCreds.auth_key}"
@@ -51,7 +52,7 @@ export class GamesService {
     return _.get(respData, 'response.init_game.user');
   }
 
-  async addArmory(userCreds: Games.UserCredentials, armoryItem: Games.ArmoryItem): Promise<ContractId> {
+  async addArmory (userCreds: Games.UserCredentials, armoryItem: Games.ArmoryItem): Promise<ContractId> {
     const reqData = `
       <start_contract
           uid="${userCreds.uid}"
@@ -73,7 +74,7 @@ export class GamesService {
     return _.get(respData, 'response.contract_started._');
   }
 
-  async collectArmory(userCreds: Games.UserCredentials, contractId: ContractId) {
+  async collectArmory (userCreds: Games.UserCredentials, contractId: ContractId) {
     const reqData = `
       <collect_contract
           uid="${userCreds.uid}"
@@ -108,7 +109,7 @@ export class GamesService {
     };
   }
 
-  private parseXMLToJSON<T>(xmlSOAPResp: string): Bluebird<any> {
+  private parseXMLToJSON<T> (xmlSOAPResp: string): Bluebird<any> {
     return new Bluebird((resolve, reject) => {
       xml2js.parseString(xmlSOAPResp, {
         explicitArray: false,
