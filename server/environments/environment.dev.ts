@@ -14,4 +14,13 @@ export const environment: Interfaces.Environment = {
       expiresIn: Constants.Environment.Auth.ExpiresIn,
     },
   },
+  database: {
+    mongodb: {
+      username: Constants.Environment.Mongodb.Username,
+      password: Constants.Environment.Mongodb.Password,
+      host: Constants.Environment.Mongodb.Host,
+      port: Constants.Environment.Mongodb.Port,
+      database: Constants.Environment.Mongodb.Database,
+    },
+  },
 };

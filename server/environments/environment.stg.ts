@@ -14,4 +14,13 @@ export const environment: Interfaces.Environment = {
       expiresIn: process.env.AUTH_EXPIRES_IN || Constants.Environment.Auth.ExpiresIn,
     },
   },
+  database: {
+    mongodb: {
+      username: process.env.DB_MONGODB_USERNAME || Constants.Environment.Mongodb.Username,
+      password: process.env.DB_MONGODB_PASSWORD || Constants.Environment.Mongodb.Password,
+      host: process.env.DB_MONGODB_HOST || Constants.Environment.Mongodb.Host,
+      port: process.env.DB_MONGODB_PORT || Constants.Environment.Mongodb.Port,
+      database: process.env.DB_MONGODB_DATABASE || Constants.Environment.Mongodb.Database,
+    },
+  },
 };

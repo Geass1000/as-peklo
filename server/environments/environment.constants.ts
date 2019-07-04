@@ -10,4 +10,12 @@ export namespace Environment {
     export const Secret: string = 'mySecretKey';
     export const ExpiresIn: number = 86400;
   }
+
+  export namespace Mongodb {
+    export const Username = `root`;
+    export const Password = `12345`;
+    export const Host = `localhost`;
+    export const Port = `27017`;
+    export const Database = `gafrome`;
+  }
 }
