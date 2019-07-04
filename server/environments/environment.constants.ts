@@ -18,7 +18,7 @@ export namespace Environment {
   export namespace Mongodb {
     export const Username = `root`;
     export const Password = `12345`;
-    export const Host = `localhost`;
+    export const Host = `mongo-container`;
     export const Port = `27017`;
     export const Database = `gafrome`;
   }
