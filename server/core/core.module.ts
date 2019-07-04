@@ -1,4 +1,4 @@
-import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './database/database.module';
 import * as Nest from '@nestjs/common';
 
 import { CacheModule } from './cache/cache.module';
@@ -15,11 +15,13 @@ const NestCacheModule = Nest.CacheModule.register({
     CacheModule,
     RequestModule,
     AuthModule,
+    DatabaseModule,
   ],
   exports: [
     NestCacheModule,
     RequestModule,
     AuthModule,
+    DatabaseModule,
   ],
 })
 export class CoreModule {}
