@@ -4,7 +4,11 @@ import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = {
   mode: Enums.Environment.Staging,
-  port: +process.env.PORT || Constants.Environment.Server.Port,
+  server: {
+    port: +process.env.PORT || Constants.Environment.Server.Port,
+    domain: process.env.DOMAIN ||  Constants.Environment.Server.Domain,
+    protocol: process.env.PROTOCOL || Constants.Environment.Server.Protocol,
+  },
   nats: {
     url: process.env.NATS_URL || Constants.Environment.Nats.Url,
   },

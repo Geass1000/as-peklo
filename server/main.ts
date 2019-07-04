@@ -18,7 +18,7 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservicesAsync();
-  await app.listen(environment.port, () => {
+  await app.listen(environment.server.port, () => {
   });
 
   if (module.hot) {

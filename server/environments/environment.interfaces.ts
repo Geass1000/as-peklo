@@ -6,6 +6,12 @@ export namespace Environment {
     url: string;
   }
 
+  export interface Server {
+    protocol: string;
+    domain: string;
+    port: number;
+  }
+
   export interface Auth {
     googleSecret: string;
     jwt: JwtModuleOptions;
@@ -26,7 +32,7 @@ export namespace Environment {
 
 export interface Environment {
   mode: Enums.Environment;
-  port: number;
+  server: Environment.Server;
   nats: Environment.NatsOptions;
   auth: Environment.Auth;
   database: Environment.Database;

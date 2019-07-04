@@ -2,6 +2,8 @@
 export namespace Environment {
   export namespace Server {
     export const Port: number = 4321;
+    export const Domain: string = `localhost`;
+    export const Protocol: string = `http`;
   }
 
   export namespace Nats {
