@@ -6,6 +6,11 @@ export namespace Environment {
     url: string;
   }
 
+  export interface Auth {
+    googleSecret: string;
+    jwt: JwtModuleOptions;
+  }
+
   export interface DatabaseOpts {
     username: string;
     password: string;
@@ -23,6 +28,6 @@ export interface Environment {
   mode: Enums.Environment;
   port: number;
   nats: Environment.NatsOptions;
-  auth: JwtModuleOptions;
+  auth: Environment.Auth;
   database: Environment.Database;
 }

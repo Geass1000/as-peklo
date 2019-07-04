@@ -4,14 +4,17 @@ import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = {
   mode: Enums.Environment.Production,
-  port: +process.env.PORT || Constants.Environment.Port,
+  port: +process.env.PORT || Constants.Environment.Server.Port,
   nats: {
     url: process.env.NATS_URL || Constants.Environment.Nats.Url,
   },
   auth: {
-    secret: process.env.AUTH_SECRET || Constants.Environment.Auth.Secret,
-    signOptions: {
-      expiresIn: process.env.AUTH_EXPIRES_IN || Constants.Environment.Auth.ExpiresIn,
+    googleSecret: process.env.GOOGLE_SECRET,
+    jwt: {
+      secret: process.env.AUTH_SECRET || Constants.Environment.Auth.Secret,
+      signOptions: {
+        expiresIn: process.env.AUTH_EXPIRES_IN || Constants.Environment.Auth.ExpiresIn,
+      },
     },
   },
   database: {
