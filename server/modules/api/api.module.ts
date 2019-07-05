@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
+import * as Nest from '@nestjs/common';
+
+import { AuthModule } from './auth/auth.module';
 import { GamesModule } from './games/games.module';
 
-@Module({
+@Nest.Module({
   imports: [
+    AuthModule,
     GamesModule,
   ],
   controllers: [
@@ -10,4 +13,4 @@ import { GamesModule } from './games/games.module';
   providers: [
   ],
 })
-export class ApiModule {}
+export class APIModule {}
