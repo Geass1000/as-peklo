@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "../dist/client-browser",
     "baseUrl": "./",
-    "module": "es2015",
     "types": []
   },
   "include": [
