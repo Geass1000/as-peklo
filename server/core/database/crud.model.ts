@@ -2,9 +2,9 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 import { model, Model, Document } from 'mongoose';
 
-export class CRUDModel<T extends Document> {
+export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';
-  public model: Model<T>;
+  public model: Model<IModelDoc>;
 
   /**
    * @constructor
@@ -13,20 +13,20 @@ export class CRUDModel<T extends Document> {
   }
 
   /**
-   * getMonitors - returns the list of documents (all).
+   * Returns the list of documents (all).
    *
-   * @return {Bluebird<T[]>}
+   * @return {Bluebird<IModelDoc[]>}
    */
-  public getAll(): Bluebird<T[]> {
+  public getAll(): Bluebird<IModelDoc[]> {
     return Bluebird.resolve(this.model.find().exec());
   }
 
   /**
-   * getById - returns the document by id.
+   * Returns the document by id.
    *
-   * @return {Bluebird<T[]>}
+   * @return {Bluebird<IModelDoc[]>}
    */
-  public getById(id: string): Bluebird<T> {
+  public getById(id: string): Bluebird<IModelDoc> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - getById: ID is required!`);
     }
@@ -35,11 +35,20 @@ export class CRUDModel<T extends Document> {
   }
 
   /**
-   * addOne - adds new document to the collection. As result returns the new document.
+   * Returns the document by specific conditions.
    *
-   * @return {Bluebird<T>}
+   * @return {Bluebird<IModelDoc[]>}
    */
-  public addOne(obj: T): Bluebird<T> {
+  public get(conditions: any): Bluebird<IModelDoc> {
+    return Bluebird.resolve(this.model.findOne(conditions).exec());
+  }
+
+  /**
+   * Adds new document to the collection. As result returns the new document.
+   *
+   * @return {Bluebird<IModelDoc>}
+   */
+  public addOne(obj: IModel): Bluebird<IModelDoc> {
     if (!obj) {
       throw new Error(`${this.className} - addOne: Object is required!`);
     }
@@ -48,24 +57,24 @@ export class CRUDModel<T extends Document> {
   }
 
   /**
-   * addMany - adds new documents to the collection. As result returns the new documents.
+   * Adds new documents to the collection. As result returns the new documents.
    *
-   * @return {Bluebird<T[]>}
+   * @return {Bluebird<IModelDoc[]>}
    */
-  public addMany(obj: T[]): Bluebird<T[]> {
-    if (!obj) {
-      throw new Error(`${this.className} - addMany: Objects are required!`);
+  public addMany(obj: IModel[]): Bluebird<IModelDoc[]> {
+    if (!_.isArray(obj)) {
+      throw new Error(`${this.className} - addMany: Objects must be of type array!`);
     }
 
     return Bluebird.resolve(this.model.create(obj));
   }
 
   /**
-   * updateById - updates the document by id. As result returns the updated document.
+   * Updates the document by id. As result returns the updated document.
    *
-   * @return {Bluebird<T[]>}
+   * @return {Bluebird<IModelDoc[]>}
    */
-  public updateById(id: string, obj: T): Bluebird<T> {
+  public updateById(id: string, obj: IModelDoc): Bluebird<IModelDoc> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - updateById: ID is required!`);
     }
@@ -80,12 +89,12 @@ export class CRUDModel<T extends Document> {
   }
 
   /**
-   * removeById - finds and removes the document by id. As result returns the
+   * Finds and removes the document by id. As result returns the
    * removed document.
    *
-   * @return {Bluebird<T>}
+   * @return {Bluebird<IModelDoc>}
    */
-  public removeById(id: string): Bluebird<T> {
+  public removeById(id: string): Bluebird<IModelDoc> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - removeById: ID is required!`);
     }
@@ -96,7 +105,7 @@ export class CRUDModel<T extends Document> {
   }
 
   /**
-   * dropCollection - drops the collection.
+   * Drops the collection.
    *
    * @return {Bluebird<any>}
    */
