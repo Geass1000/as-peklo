@@ -1,8 +1,8 @@
 import * as Nest from '@nestjs/common';
 
-import { CacheKey } from './cache.interfaces';
+import { CacheKey } from './shared/cache.interfaces';
 import { CacheInterceptor } from './cache.interceptor';
-import { ReflectMetadata } from './cache.constants';
+import { ReflectMetadata } from './shared/cache.constants';
 
 export const UseCache = (cacheKey: CacheKey): ((target: object, key?: any, descriptor?: any) => any) => {
   return (target, key, descriptor) => {

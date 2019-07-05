@@ -1,6 +1,6 @@
 import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
-import { model, Model, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';

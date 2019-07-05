@@ -3,7 +3,7 @@ import * as NestCore from '@nestjs/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { ReflectMetadata } from './cache.constants';
+import { ReflectMetadata } from './shared/cache.constants';
 
 @Nest.Injectable()
 export class CacheInterceptor implements Nest.NestInterceptor {

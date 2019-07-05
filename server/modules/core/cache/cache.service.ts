@@ -1,6 +1,6 @@
 import * as Nest from '@nestjs/common';
 
-import { CacheKey } from './cache.interfaces';
+import { CacheKey } from './shared/cache.interfaces';
 
 @Nest.Injectable()
 export class CacheService {

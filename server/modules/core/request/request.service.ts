@@ -7,8 +7,8 @@ import * as Rx from 'rxjs';
 import * as Request from 'request';
 import * as RequestPromise from 'request-promise';
 
-import * as Interfaces from './request.interfaces';
-import * as Constants from './request.constants';
+import * as Interfaces from './shared/request.interfaces';
+import * as Constants from './shared/request.constants';
 
 @Nest.Injectable()
 export class RequestService {
