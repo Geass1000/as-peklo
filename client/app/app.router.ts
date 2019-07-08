@@ -2,13 +2,15 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import * as AuthConstants from './auth/shared/auth.constants';
+
 const routes: Routes = [
   {
     path: ``,
     component: HomeComponent,
   },
   {
-    path: `auth`,
+    path: AuthConstants.Route.Base,
     loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule),
   },
 ];
