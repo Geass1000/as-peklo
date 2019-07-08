@@ -1,5 +1,7 @@
 import * as Nest from '@nestjs/common';
+
 import { UserModel } from './user.model';
+import { UserController } from './user.controller';
 
 export const providers = [
   UserModel,
@@ -7,6 +9,9 @@ export const providers = [
 
 @Nest.Module({
   imports: [
+  ],
+  controllers: [
+    UserController,
   ],
   providers: [
     ...providers,
