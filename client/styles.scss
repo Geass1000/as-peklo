@@ -3,6 +3,7 @@
 @import "./mixins.scss";
 
 .sidenav-content {
+  box-sizing: border-box;
   min-height: 100vh;
   padding: 88px 3rem 2rem;
 }
