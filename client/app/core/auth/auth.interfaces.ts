@@ -1,5 +1,12 @@
 
+export namespace AccessToken {
+  export type Type = string;
+
+  export interface Data {
+    userId: string;
+  }
+}
+
 export interface SignIn {
-  uid: string;
-  auth_key: string;
+  accessToken: AccessToken.Type;
 }
