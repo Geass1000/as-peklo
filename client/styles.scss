@@ -1,2 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./reset.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./mixins.scss";
+
+.sidenav-content {
+  min-height: 100vh;
+  padding: 88px 3rem 2rem;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  @include font-size(14)
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    @include font-size(24 - ($i - 1) * 2)
+  }
+}
+
+@import "./theme.scss";
