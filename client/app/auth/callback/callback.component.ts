@@ -29,7 +29,9 @@ export class CallbackComponent implements OnInit {
       let signInResult: Observable<any> = null;
 
       if (params.has('code') && params.has('state')) {
+        const code = params.get('code');
         // Facebook Login
+        signInResult = this.authService.facebookSignIn(code);
       } else if (params.has('oauth_token') && params.has('oauth_verifier')) {
         // Twitter Login
       } else if (params.has('code')) {

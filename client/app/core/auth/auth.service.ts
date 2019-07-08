@@ -34,6 +34,11 @@ export class AuthService {
     return this.signInHandler(req);
   }
 
+  public facebookSignIn (code: string): Observable<Interfaces.SignIn> {
+    const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/facebook/signin?code=${code}`);
+    return this.signInHandler(req);
+  }
+
   /**
    * Auth logic
    */
