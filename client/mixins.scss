@@ -1,0 +1,5 @@
+// REM Font Adjustments
+@mixin font-size($sizeValue) {
+  font-size: ($sizeValue) + px;
+  font-size: ($sizeValue / 10) + rem;
+}
