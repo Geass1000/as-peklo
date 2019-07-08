@@ -12,7 +12,7 @@ export namespace Environment {
 
   export namespace Auth {
     export const Secret: string = 'mySecretKey';
-    export const ExpiresIn: number = 86400;
+    export const ExpiresIn: string = '24h';
   }
 
   export namespace Mongodb {
