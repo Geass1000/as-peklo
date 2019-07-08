@@ -24,6 +24,12 @@ export namespace Config {
     readonly scopes: string[];
   }
 
+  export interface Vkontakte extends OAuth {
+    readonly responseType: string;
+    readonly scopes: string[];
+    readonly v: string;
+  }
+
   export interface Facebook extends OAuth {
     readonly state: string;
   }
