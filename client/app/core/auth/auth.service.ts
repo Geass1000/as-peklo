@@ -29,13 +29,8 @@ export class AuthService {
     return this.http.get<Interfaces.RedirectOptions>(`${this.apiAuth}/${providerName}/redirect`);
   }
 
-  public googleSignIn (code: string): Observable<Interfaces.SignIn> {
-    const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/google/signin?code=${code}`);
-    return this.signInHandler(req);
-  }
-
-  public facebookSignIn (code: string): Observable<Interfaces.SignIn> {
-    const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/facebook/signin?code=${code}`);
+  public signIn (providerName: string, code: string): Observable<Interfaces.SignIn> {
+    const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/${providerName}/signin?code=${code}`);
     return this.signInHandler(req);
   }
 
