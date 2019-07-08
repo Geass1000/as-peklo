@@ -10,12 +10,18 @@ export namespace User {
     id: string;
     email: string;
   }
+
+  export interface VkontakteCreads {
+    id: string;
+    email: string;
+  }
 }
 
 export interface User {
   roles: [ String ];
   google?: User.GoogleCreads;
   facebook?: User.FacebookCreads;
+  vkontakte?: User.VkontakteCreads;
 }
 
 export interface UserDocument extends User, Document {
