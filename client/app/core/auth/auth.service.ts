@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
 import * as Interfaces from './auth.interfaces';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,11 @@ export class AuthService {
    * Provider logic
    */
 
-  public getGoogleRedirectURL () {
-    return this.http.get(`${this.apiAuth}/google/redirect`);
+  public getGoogleRedirectURL (): Observable<Interfaces.RedirectOptions> {
+    return this.http.get<Interfaces.RedirectOptions>(`${this.apiAuth}/google/redirect`);
   }
 
-  public googleSignIn (code: string) {
+  public googleSignIn (code: string): Observable<Interfaces.SignIn> {
     const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/google/signin?code=${code}`);
     return this.signInHandler(req);
   }
@@ -37,11 +38,19 @@ export class AuthService {
    * Auth logic
    */
 
-  public signOut () {
-    localStorage.removeItem(Constants.LocalStorage.AccessToken);
+  public signOut (): Observable<unknown> {
+    const removeTokenPromise = new Promise((resolve, reject) => {
+      try {
+        this.deleteToken();
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(removeTokenPromise);
   }
 
-  public refreshToken () {
+  public refreshToken (): Observable<Interfaces.SignIn> {
     const req = this.http.get<Interfaces.SignIn>(`api/v1/auth/refresh`);
     return this.signInHandler(req);
   }
@@ -59,6 +68,10 @@ export class AuthService {
 
   public setToken (token: Interfaces.AccessToken.Type): void {
     localStorage.setItem(Constants.LocalStorage.AccessToken, token);
+  }
+
+  public deleteToken (): void {
+    localStorage.removeItem(Constants.LocalStorage.AccessToken);
   }
 
   public getToken (): Interfaces.AccessToken.Type {
