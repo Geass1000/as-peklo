@@ -10,6 +10,7 @@ services:
     environment:
       - GOOGLE_SECRET=${GOOGLE_SECRET}
       - FACEBOOK_SECRET=${FACEBOOK_SECRET}
+      - VK_SECRET=${VK_SECRET}
     networks:
       - app-net
     ports:
