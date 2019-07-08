@@ -1,3 +1,4 @@
+import { CallbackComponent } from './callback/callback.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -5,6 +6,7 @@ import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
   { path: ``, component: AuthComponent, },
+  { path: `callback`, component: CallbackComponent, },
 ];
 
 @NgModule({
@@ -12,3 +14,8 @@ const routes: Routes = [
   exports: [ RouterModule ]
 })
 export class AuthRouter { }
+
+export const components = [
+  AuthComponent,
+  CallbackComponent,
+];

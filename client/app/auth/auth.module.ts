@@ -1,5 +1,4 @@
-import { AuthRouter } from './auth.router';
-import { AuthComponent } from './auth.component';
+import { AuthRouter, components } from './auth.router';
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -10,7 +9,7 @@ import { SharedModule } from 'app/shared/shared.module';
     AuthRouter,
   ],
   declarations: [
-    AuthComponent,
+    ...components,
   ],
   providers: [],
 })
