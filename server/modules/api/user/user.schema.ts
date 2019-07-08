@@ -15,8 +15,7 @@ export const VkontakteCredsSchema: Schema = new Schema({
   email: String,
 }, { _id: false });
 
-export const UserSchema: Schema = new Schema({
-  roles: [ String ],
+export const socialPartOfUserSchema = {
   google: {
     type: GoogleCredsSchema,
   },
@@ -26,4 +25,9 @@ export const UserSchema: Schema = new Schema({
   vkontakte: {
     type: VkontakteCredsSchema,
   },
+};
+
+export const UserSchema: Schema = new Schema({
+  roles: [ String ],
+  ...socialPartOfUserSchema,
 });
