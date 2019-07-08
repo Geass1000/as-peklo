@@ -1,3 +1,4 @@
+import { OAuthStrategyHandler } from './oauth-strategy.handler';
 import * as Nest from '@nestjs/common';
 
 import * as User from '../../user';
@@ -14,34 +15,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
     private userModel: User.UserModel,
     @Nest.Inject(Constants.DI.Config.Google)
-      private readonly googleConfig: Interfaces.Config.Google,
+      private readonly config: Interfaces.Config.Google,
   ) {
     super({
-      clientID: googleConfig.clientId,
-      clientSecret: googleConfig.clientSecret,
-      callbackURL: googleConfig.oauthRedirectURL,
-    }, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
-      const existingUser: User.Interfaces.UserDocument =
-        await this.userModel.get({ 'google.id': profile.id });
-
-      if (existingUser) {
-        return done(null, existingUser);
-      }
-
-      try {
-        const userEmail = profile.emails.shift().value;
-        const newUser = await this.userModel.addOne({
-          roles: [ Enums.Roles.User, ],
-          google: {
-            id: profile.id,
-            email: userEmail,
-          },
-        });
-
-        return done(null, newUser);
-      } catch (error) {
-        return done(error, null);
-      }
-    });
+      clientID: config.clientId,
+      clientSecret: config.clientSecret,
+      callbackURL: config.oauthRedirectURL,
+    }, OAuthStrategyHandler('google', userModel));
   }
 }
