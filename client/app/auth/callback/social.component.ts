@@ -1,3 +1,4 @@
+import { BaseComponent } from './../../shared/base/base.component';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,13 +10,13 @@ import { AuthService } from './../../core/auth/auth.service';
   selector: 'app-auth-callback-social',
   template: '',
 })
-export class SocialCallbackComponent implements OnInit {
+export class SocialCallbackComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Inject(PLATFORM_ID) private readonly platformId: any,
-  ) { }
+  ) { super(); }
 
   public ngOnInit() {
     const inBrowser = isPlatformBrowser(this.platformId);
@@ -24,7 +25,7 @@ export class SocialCallbackComponent implements OnInit {
       return;
     }
 
-    this.route.url.subscribe((socialURL) => {
+    this.subscribe = this.route.url.subscribe((socialURL) => {
       const snapshot = this.route.snapshot;
       const params = snapshot.queryParamMap;
 
