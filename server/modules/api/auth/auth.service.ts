@@ -40,8 +40,13 @@ export class AuthService {
       `response_type=${this.googleConfig.responseType}`,
       `scope=${this.googleConfig.scopes.join(' ')}`
     ];
+    return this.getRedirect(this.googleConfig, queryParams);
+  }
+
+  public getRedirect<T extends Interfaces.Config.OAuth> (config: T, queryParams: string[]):
+      Interfaces.RedirectOptions {
     const redirectURL: string =
-      `${this.googleConfig.loginDialogURL}?${queryParams.join('&')}`;
+      `${config.loginDialogURL}?${queryParams.join('&')}`;
 
     return {
       url: redirectURL,
