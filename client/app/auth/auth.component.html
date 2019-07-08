@@ -1,18 +1,1 @@
-<main fxLayoutAlign="center start" class="sidenav-content">
-  <mat-card class="social-container">
-    <mat-card-header>
-      <mat-card-title>Sign In</mat-card-title>
-      <mat-card-subtitle>Sign In using a Social Media Account</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content fxLayout="column" (click)="onClickSignIn($event)">
-      <button
-          *ngFor="let socialButton of socialButtons"
-          type="button" mat-flat-button [ngClass]="socialButton.class"
-          fxLayout="row" fxLayoutAlign="center center"
-          [attr.data-id]="socialButton.id">
-        <fa-icon [icon]="['fab', socialButton.icon]" size="lg"></fa-icon>
-        <span>{{socialButton.label}}</span>
-      </button>
-    </mat-card-content>
-  </mat-card>
-</main>
+<router-outlet></router-outlet>
