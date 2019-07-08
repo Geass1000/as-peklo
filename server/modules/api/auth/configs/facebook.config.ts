@@ -6,6 +6,6 @@ export const FacebookConfig: Interfaces.Config.Facebook = {
   clientId: '335081620755856',
   clientSecret:  process.env.FACEBOOK_SECRET,
   loginDialogURL: 'https://www.facebook.com/v2.12/dialog/oauth',
-  oauthRedirectURL: `${environment.server.protocol}://${environment.server.domain}:4200/auth/callback`,
+  oauthRedirectURL: `${environment.server.protocol}://${environment.server.domain}:4200/auth/callback/facebook`,
   state: '{fbstate}',
 };
