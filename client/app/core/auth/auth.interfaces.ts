@@ -10,3 +10,7 @@ export namespace AccessToken {
 export interface SignIn {
   accessToken: AccessToken.Type;
 }
+
+export interface RedirectOptions {
+  url: string;
+}
