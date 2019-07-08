@@ -5,6 +5,7 @@ import { UserDocument } from '../user/shared/user.interfaces';
 
 import { FacebookGuard } from './guards/facebook.guard';
 import { GoogleGuard } from './guards/google.guard';
+import { VkontakteGuard } from './guards/vkontakte.guard';
 
 import * as Decorators from '../../../decorators';
 
@@ -39,6 +40,18 @@ export class AuthController {
   @Nest.UseGuards(GoogleGuard)
   @Nest.Get(Constants.Routes.Google.SignIn)
   public async googleSignIn (@Decorators.User() user: UserDocument): Promise<Interfaces.SignIn> {
+    const accessToken = this.authService.createToken(user);
+    return { accessToken: accessToken };
+  }
+
+  @Nest.Get(Constants.Routes.Vkontakte.Redirect)
+  public async vkontakteRedirectURI (): Promise<any> {
+    return this.authService.getVkontakteRedirect();
+  }
+
+  @Nest.UseGuards(VkontakteGuard)
+  @Nest.Get(Constants.Routes.Vkontakte.SignIn)
+  public async vkontakteSignIn (@Decorators.User() user: UserDocument): Promise<Interfaces.SignIn> {
     const accessToken = this.authService.createToken(user);
     return { accessToken: accessToken };
   }
