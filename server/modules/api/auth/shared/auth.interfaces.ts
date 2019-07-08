@@ -12,11 +12,14 @@ export interface SignIn {
 }
 
 export namespace Config {
-  export interface Google {
+  export interface OAuth {
     readonly clientId: string;
     readonly clientSecret: string;
     readonly loginDialogURL: string;
     readonly oauthRedirectURL: string;
+  }
+
+  export interface Google extends OAuth {
     readonly responseType: string;
     readonly scopes: string[];
   }
