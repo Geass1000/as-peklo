@@ -23,6 +23,10 @@ export namespace Config {
     readonly responseType: string;
     readonly scopes: string[];
   }
+
+  export interface Facebook extends OAuth {
+    readonly state: string;
+  }
 }
 
 export interface RedirectOptions {
