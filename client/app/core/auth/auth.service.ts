@@ -13,7 +13,7 @@ import { from } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiV1 = `api/v1/`;
+  private apiV1 = `api/v1`;
   private apiAuth = `${this.apiV1}/auth`;
 
   constructor(
