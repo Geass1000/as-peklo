@@ -1,3 +1,4 @@
+import { LayoutModule } from './layout/layout.module';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,7 +14,11 @@ import { faTwitter, faGooglePlusG, faFacebookF, faVk } from '@fortawesome/free-b
     SharedModule,
     HttpClientModule,
     AuthModule,
+    LayoutModule,
   ],
+  exports: [
+    LayoutModule,
+  ]
 })
 export class CoreModule {
   constructor() {
