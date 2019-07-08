@@ -16,6 +16,8 @@ export class AuthService {
     private readonly userModel: User.UserModel,
     @Nest.Inject(Constants.DI.Config.Google)
       private readonly googleConfig: Interfaces.Config.Google,
+    @Nest.Inject(Constants.DI.Config.Facebook)
+      private readonly facebookConfig: Interfaces.Config.Facebook,
   ) {
   }
 
@@ -31,6 +33,15 @@ export class AuthService {
     } catch (error) {
       return false;
     };
+  }
+
+  public getFacebookRedirect (): Interfaces.RedirectOptions {
+    const queryParams: string[] = [
+      `client_id=${this.facebookConfig.clientId}`,
+      `redirect_uri=${this.facebookConfig.oauthRedirectURL}`,
+      `state=${this.facebookConfig.state}`,
+    ];
+    return this.getRedirect(this.facebookConfig, queryParams);
   }
 
   public getGoogleRedirect (): Interfaces.RedirectOptions {
