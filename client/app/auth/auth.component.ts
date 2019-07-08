@@ -62,7 +62,7 @@ export class AuthComponent {
 
     switch (providerId) {
       case Enums.AuthProvider.Google:
-        getRedirectURL$ = this.authService.getGoogleRedirectURI();
+        getRedirectURL$ = this.authService.getGoogleRedirectURL();
         break;
       default:
         return;
