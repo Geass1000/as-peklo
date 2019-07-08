@@ -9,16 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
-import {
-  JWTStrategy,
-  GoogleStrategy,
-} from './strategies';
-
-import {
-  GoogleConfig,
-} from './configs';
-
-import * as Constants from './shared/auth.constants';
+import { authProviders } from './auth.providers';
 
 @Nest.Module({
   imports: [
@@ -31,12 +22,7 @@ import * as Constants from './shared/auth.constants';
   ],
   providers: [
     AuthService,
-    JWTStrategy,
-    GoogleStrategy,
-    {
-      provide: Constants.DI.Config.Google,
-      useValue: GoogleConfig,
-    },
+    ...authProviders,
   ],
 })
 export class AuthModule {}
