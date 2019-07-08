@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   public createToken (user: User.Interfaces.UserDocument): Interfaces.AccessToken.Type {
-    const accessToken = this.jwtService.sign({ userId: user._id.str });
+    const accessToken = this.jwtService.sign({ userId: user._id, roles: user.roles, });
     return accessToken;
   }
 
