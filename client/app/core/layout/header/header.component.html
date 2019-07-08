@@ -9,11 +9,16 @@
     <a routerLink="/" routerLinkActive="active" mat-button>
       Home
     </a>
-    <a routerLink="/auth" routerLinkActive="active" mat-button>
+    <a *ngIf="!isLoggedIn()" routerLink="/auth" routerLinkActive="active" mat-button>
       Sign In
     </a>
-    <a routerLink="/auth/signout" routerLinkActive="active" mat-button>
-      Sign Out
-    </a>
+    <ng-template [ngIf]="isLoggedIn()">
+      <a routerLink="/profile" routerLinkActive="active" mat-button>
+        Profile
+      </a>
+      <a routerLink="/auth/signout" routerLinkActive="active" mat-button>
+        Sign Out
+      </a>
+    </ng-template>
   </nav>
 </mat-toolbar>
