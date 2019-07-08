@@ -25,8 +25,8 @@ export class AuthService {
    * Provider logic
    */
 
-  public getGoogleRedirectURL (): Observable<Interfaces.RedirectOptions> {
-    return this.http.get<Interfaces.RedirectOptions>(`${this.apiAuth}/google/redirect`);
+  public getRedirectURL (providerName: string): Observable<Interfaces.RedirectOptions> {
+    return this.http.get<Interfaces.RedirectOptions>(`${this.apiAuth}/${providerName}/redirect`);
   }
 
   public googleSignIn (code: string): Observable<Interfaces.SignIn> {

@@ -13,25 +13,25 @@ import { Observable } from 'rxjs';
 export class SignInComponent {
   public socialButtons: any[] = [
     {
-      id: Enums.AuthProvider.Google,
+      provider: Enums.AuthProvider.Google,
       class: 'google',
       icon: 'google-plus-g',
       label: `Google+`,
     },
     {
-      id: Enums.AuthProvider.Facebook,
+      provider: Enums.AuthProvider.Facebook,
       class: 'facebook',
       icon: 'facebook-f',
       label: `Facebook`,
     },
     {
-      id: Enums.AuthProvider.Twitter,
+      provider: Enums.AuthProvider.Twitter,
       class: 'twitter',
       icon: 'twitter',
       label: `Twitter`,
     },
     {
-      id: Enums.AuthProvider.Vkontakte,
+      provider: Enums.AuthProvider.Vkontakte,
       class: 'vkontakte',
       icon: 'vk',
       label: `Vkontakte`,
@@ -52,24 +52,11 @@ export class SignInComponent {
       throw new Error('Element was not selected!');
     }
 
-    const id: string = el.getAttribute('data-id');
+    const provider: string = el.getAttribute('data-id');
 
-    this.singIn(id as Enums.AuthProvider);
-  }
-
-  private singIn(providerId: Enums.AuthProvider) {
-    let getRedirectURL$: Observable<any>;
-
-    switch (providerId) {
-      case Enums.AuthProvider.Google:
-        getRedirectURL$ = this.authService.getGoogleRedirectURL();
-        break;
-      default:
-        return;
-    }
-
-    getRedirectURL$.subscribe((redirectOpts) => {
-      window.location.replace(redirectOpts.url);
-    });
+    this.authService.getRedirectURL(provider)
+      .subscribe((redirectOpts) => {
+        window.location.replace(redirectOpts.url);
+      });
   }
 }

@@ -9,7 +9,7 @@
             *ngFor="let socialButton of socialButtons"
             type="button" mat-flat-button [ngClass]="socialButton.class"
             fxLayout="row" fxLayoutAlign="center center"
-            [attr.data-id]="socialButton.id">
+            [attr.data-id]="socialButton.provider">
           <fa-icon [icon]="['fab', socialButton.icon]" size="lg"></fa-icon>
           <span>{{socialButton.label}}</span>
         </button>
