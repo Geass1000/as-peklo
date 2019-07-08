@@ -6,7 +6,7 @@ import * as Enums from '../shared/auth.enums';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-auth-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })

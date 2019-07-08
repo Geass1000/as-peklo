@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../core/auth/auth.service';
 
 @Component({
-  selector: 'app-signout',
+  selector: 'app-auth-signout',
   templateUrl: './signout.component.html',
   styleUrls: ['./signout.component.scss']
 })
