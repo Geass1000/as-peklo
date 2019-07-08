@@ -7,6 +7,9 @@ networks:
 services:
   web-api:
     image: web-api:latest
+    environment:
+      - GOOGLE_SECRET=${GOOGLE_SECRET}
+      - FACEBOOK_SECRET=${FACEBOOK_SECRET}
     networks:
       - app-net
     ports:
