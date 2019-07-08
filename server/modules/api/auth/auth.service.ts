@@ -18,6 +18,8 @@ export class AuthService {
       private readonly googleConfig: Interfaces.Config.Google,
     @Nest.Inject(Constants.DI.Config.Facebook)
       private readonly facebookConfig: Interfaces.Config.Facebook,
+    @Nest.Inject(Constants.DI.Config.Vkontakte)
+      private readonly vkontakteConfig: Interfaces.Config.Vkontakte,
   ) {
   }
 
@@ -52,6 +54,17 @@ export class AuthService {
       `scope=${this.googleConfig.scopes.join(' ')}`
     ];
     return this.getRedirect(this.googleConfig, queryParams);
+  }
+
+  public getVkontakteRedirect (): Interfaces.RedirectOptions {
+    const queryParams: string[] = [
+      `client_id=${this.vkontakteConfig.clientId}`,
+      `redirect_uri=${this.vkontakteConfig.oauthRedirectURL}`,
+      `response_type=${this.vkontakteConfig.responseType}`,
+      `scope=${this.vkontakteConfig.scopes.join(' ')}`,
+      `v=${this.vkontakteConfig.v}`,
+    ];
+    return this.getRedirect(this.vkontakteConfig, queryParams);
   }
 
   public getRedirect<T extends Interfaces.Config.OAuth> (config: T, queryParams: string[]):
