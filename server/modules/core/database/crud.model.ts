@@ -2,6 +2,8 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 import { Model, Document, DocumentQuery } from 'mongoose';
 
+import { Interfaces } from './shared';
+
 export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';
   public model: Model<IModelDoc>;
@@ -10,6 +12,34 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    * @constructor
    */
   constructor() {
+  }
+
+  /**
+   * Returns the list of documents by specific aggregation condition.
+   *
+   * @param  {any[]} aggregations - aggregation condition
+   * @return {Bluebird<Interfaces.Result.Many<IResult>>}
+   */
+  public aggregateMany<IResult> (
+    aggregations: any[],
+  ): Bluebird<Interfaces.Result.Many<IResult>> {
+    const query = this.model.aggregate(aggregations);
+    return Bluebird.resolve(query.exec())
+      .then((result: IResult[]) => ({ result }));
+  }
+
+  /**
+   * Returns a document by specific aggregation condition.
+   *
+   * @param  {any[]} aggregations - aggregation condition
+   * @return {Bluebird<Interfaces.Result.One<IResult>>}
+   */
+  public aggregateOne<IResult> (
+    aggregations: any[],
+  ): Bluebird<Interfaces.Result.One<IResult>> {
+    const query = this.model.aggregate(aggregations);
+    return Bluebird.resolve(query.exec())
+      .then((result: any[]) => ({ result: result[0] || null }));
   }
 
   /**
