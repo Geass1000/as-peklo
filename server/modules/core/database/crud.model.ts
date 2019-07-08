@@ -1,6 +1,6 @@
 import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
-import { Model, Document } from 'mongoose';
+import { Model, Document, DocumentQuery } from 'mongoose';
 
 export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';
@@ -17,8 +17,11 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc[]>}
    */
-  public getAll(): Bluebird<IModelDoc[]> {
-    return Bluebird.resolve(this.model.find().exec());
+  public getAll(
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc[]> | DocumentQuery<IModelDoc[], IModelDoc, any> {
+    const query = this.model.find();
+    return this.returnValue(query, asPromise);
   }
 
   /**
@@ -26,12 +29,15 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc[]>}
    */
-  public getById(id: string): Bluebird<IModelDoc> {
+  public getById (
+    id: string,
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - getById: ID is required!`);
     }
-
-    return Bluebird.resolve(this.model.findOne({ _id: id }).exec());
+    const query = this.model.findOne({ _id: id });
+    return this.returnValue(query, asPromise);
   }
 
   /**
@@ -39,8 +45,12 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc[]>}
    */
-  public get(conditions: any): Bluebird<IModelDoc> {
-    return Bluebird.resolve(this.model.findOne(conditions).exec());
+  public get(
+    conditions: any,
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
+    const query = this.model.findOne(conditions);
+    return this.returnValue(query, asPromise);
   }
 
   /**
@@ -48,7 +58,10 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc>}
    */
-  public addOne(obj: IModel): Bluebird<IModelDoc> {
+  public addOne(
+    obj: IModel,
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc> {
     if (!obj) {
       throw new Error(`${this.className} - addOne: Object is required!`);
     }
@@ -61,7 +74,9 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc[]>}
    */
-  public addMany(obj: IModel[]): Bluebird<IModelDoc[]> {
+  public addMany(
+    obj: IModel[]
+  ): Bluebird<IModelDoc[]> {
     if (!_.isArray(obj)) {
       throw new Error(`${this.className} - addMany: Objects must be of type array!`);
     }
@@ -74,7 +89,11 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc[]>}
    */
-  public updateById(id: string, obj: IModelDoc): Bluebird<IModelDoc> {
+  public updateById(
+    id: string,
+    obj: IModelDoc,
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - updateById: ID is required!`);
     }
@@ -83,9 +102,10 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
       throw new Error(`${this.className} - updateById: Object is required!`);
     }
 
-    return Bluebird.resolve(this.model.findOneAndUpdate({
-      _id: id
-    }, obj, { new: true }).exec());
+    const query = this.model.findOneAndUpdate({
+        _id: id
+      }, obj, { new: true });
+    return this.returnValue(query, asPromise);
   }
 
   /**
@@ -94,14 +114,16 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    *
    * @return {Bluebird<IModelDoc>}
    */
-  public removeById(id: string): Bluebird<IModelDoc> {
+  public removeById(
+    id: string,
+    asPromise: boolean = true,
+  ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
     if (!_.isString(id) || !id) {
       throw new Error(`${this.className} - removeById: ID is required!`);
     }
 
-    return Bluebird.resolve(this.model.findOneAndRemove({
-      _id: id
-    }).exec());
+    const query = this.model.findOneAndRemove({ _id: id });
+    return this.returnValue(query, asPromise);
   }
 
   /**
@@ -111,5 +133,12 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    */
   public dropCollection(): Bluebird<any> {
     return Bluebird.resolve(this.model.collection.drop());
+  }
+
+  private returnValue<T extends DocumentQuery<any, any, any>> (
+    query: T,
+    asPromise: boolean,
+  ): Bluebird<any> | T {
+    return asPromise ? Bluebird.resolve(query.exec()) : query;
   }
 }
