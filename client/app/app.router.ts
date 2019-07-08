@@ -13,6 +13,10 @@ const routes: Routes = [
     path: AuthConstants.Route.Base,
     loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule),
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(mod => mod.ProfileModule),
+  },
 ];
 
 @NgModule({
