@@ -7,6 +7,7 @@ import { modules as sharedModules } from './shared/shared.module';
 import { AppRouter } from './app.router';
 
 import { AppComponent } from './app.component';
+import { components } from './app.router';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { AppComponent } from './app.component';
   ],
   declarations: [
     AppComponent,
+    ...components,
   ],
   providers: [],
   bootstrap: [
