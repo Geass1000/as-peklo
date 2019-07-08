@@ -101,9 +101,9 @@ export class AuthService {
       localStorage.getItem(Constants.LocalStorage.AccessToken);
 
     try {
-      return !this.jwtHelperService.isTokenExpired(accessToken);
+      return this.jwtHelperService.isTokenExpired(accessToken);
     } catch (error) {
-      return false;
+      return true;
     }
   }
 }
