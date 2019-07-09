@@ -16,8 +16,7 @@ export class AuthService {
   ) {
   }
 
-  public createToken (user: User.Interfaces.UserDocument): Interfaces.AccessToken.Type {
-  public getFacebookRedirect (): Interfaces.RedirectOptions {
+  public getFacebookRedirect (): string {
     const queryParams: string[] = [
       `client_id=${this.facebookConfig.clientId}`,
       `redirect_uri=${this.facebookConfig.oauthRedirectURL}`,
@@ -26,7 +25,7 @@ export class AuthService {
     return this.getRedirect(this.facebookConfig, queryParams);
   }
 
-  public getGoogleRedirect (): Interfaces.RedirectOptions {
+  public getGoogleRedirect (): string {
     const queryParams: string[] = [
       `client_id=${this.googleConfig.clientId}`,
       `redirect_uri=${this.googleConfig.oauthRedirectURL}`,
@@ -36,7 +35,7 @@ export class AuthService {
     return this.getRedirect(this.googleConfig, queryParams);
   }
 
-  public getVkontakteRedirect (): Interfaces.RedirectOptions {
+  public getVkontakteRedirect (): string {
     const queryParams: string[] = [
       `client_id=${this.vkontakteConfig.clientId}`,
       `redirect_uri=${this.vkontakteConfig.oauthRedirectURL}`,
@@ -47,13 +46,13 @@ export class AuthService {
     return this.getRedirect(this.vkontakteConfig, queryParams);
   }
 
-  public getRedirect<T extends Interfaces.Config.OAuth> (config: T, queryParams: string[]):
-      Interfaces.RedirectOptions {
+  public getRedirect<T extends Interfaces.Config.OAuth> (
+    config: T,
+    queryParams: string[]
+  ): string {
     const redirectURL: string =
       `${config.loginDialogURL}?${queryParams.join('&')}`;
 
-    return {
-      url: redirectURL,
-    };
+    return redirectURL;
   }
 }
