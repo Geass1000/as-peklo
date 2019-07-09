@@ -27,9 +27,9 @@ export class AuthController {
    * FACEBOOK
    */
 
-  @Nest.Get(Constants.Routes.Facebook.Redirect)
-  public facebookRedirectURI (): string {
-    return this.authService.getFacebookRedirect();
+  @Nest.Post(Constants.Routes.Facebook.Redirect)
+  public facebookRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+    return this.authService.getFacebookRedirect(data);
   }
 
   @Nest.UseGuards(FacebookGuard)
@@ -49,9 +49,9 @@ export class AuthController {
    * GOOGLE
    */
 
-  @Nest.Get(Constants.Routes.Google.Redirect)
-  public googleRedirectURI (): string {
-    return this.authService.getGoogleRedirect();
+  @Nest.Post(Constants.Routes.Google.Redirect)
+  public googleRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+    return this.authService.getGoogleRedirect(data);
   }
 
   @Nest.UseGuards(GoogleGuard)
@@ -71,9 +71,9 @@ export class AuthController {
    * VKONTAKTE
    */
 
-  @Nest.Get(Constants.Routes.Vkontakte.Redirect)
-  public vkontakteRedirectURI (): string {
-    return this.authService.getVkontakteRedirect();
+  @Nest.Post(Constants.Routes.Vkontakte.Redirect)
+  public vkontakteRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+    return this.authService.getVkontakteRedirect(data);
   }
 
   @Nest.UseGuards(VkontakteGuard)
