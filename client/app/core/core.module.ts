@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTwitter, faGooglePlusG, faFacebookF, faVk } from '@fortawesome/free-brands-svg-icons';
+import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { SharedModule } from '../shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
@@ -34,5 +35,6 @@ export class CoreModule {
     library.add(faGooglePlusG);
     library.add(faFacebookF);
     library.add(faVk);
+    library.add(faExchangeAlt);
   }
 }
