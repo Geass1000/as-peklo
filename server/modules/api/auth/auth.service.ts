@@ -16,42 +16,51 @@ export class AuthService {
   ) {
   }
 
-  public getFacebookRedirect (): string {
-    const queryParams: string[] = [
-      `client_id=${this.facebookConfig.clientId}`,
-      `redirect_uri=${this.facebookConfig.oauthRedirectURL}`,
-      `state=${this.facebookConfig.state}`,
-    ];
-    return this.getRedirect(this.facebookConfig, queryParams);
+  public getFacebookRedirect (
+    redirectOpts: Interfaces.RedirectOptions
+  ): string {
+    const queryParams: string[] = [];
+    return this.getRedirect(this.facebookConfig, queryParams, redirectOpts);
   }
 
-  public getGoogleRedirect (): string {
-    const queryParams: string[] = [
-      `client_id=${this.googleConfig.clientId}`,
-      `redirect_uri=${this.googleConfig.oauthRedirectURL}`,
-      `response_type=${this.googleConfig.responseType}`,
-      `scope=${this.googleConfig.scopes.join(' ')}`
-    ];
-    return this.getRedirect(this.googleConfig, queryParams);
+  public getGoogleRedirect (
+    redirectOpts: Interfaces.RedirectOptions
+  ): string {
+    const queryParams: string[] = [];
+    return this.getRedirect(this.googleConfig, queryParams, redirectOpts);
   }
 
-  public getVkontakteRedirect (): string {
+  public getVkontakteRedirect (
+    redirectOpts: Interfaces.RedirectOptions
+  ): string {
     const queryParams: string[] = [
-      `client_id=${this.vkontakteConfig.clientId}`,
-      `redirect_uri=${this.vkontakteConfig.oauthRedirectURL}`,
-      `response_type=${this.vkontakteConfig.responseType}`,
-      `scope=${this.vkontakteConfig.scopes.join(' ')}`,
       `v=${this.vkontakteConfig.v}`,
     ];
-    return this.getRedirect(this.vkontakteConfig, queryParams);
+    return this.getRedirect(this.vkontakteConfig, queryParams, redirectOpts);
+  }
+
+  public getCommonQueryRedirect (
+    config: Interfaces.Config.OAuth,
+    data: Interfaces.RedirectOptions
+  ): string[] {
+    return [
+      `response_type=code`,
+      `state=${data.state}`,
+      `client_id=${config.clientId}`,
+      `redirect_uri=${config.oauthRedirectURL}`,
+      `scope=${config.scope.join(' ')}`,
+    ];
   }
 
   public getRedirect<T extends Interfaces.Config.OAuth> (
     config: T,
-    queryParams: string[]
+    queryParams: string[],
+    redirectOpts: Interfaces.RedirectOptions,
   ): string {
+    const commonQueryParams = this.getCommonQueryRedirect(config, redirectOpts);
+
     const redirectURL: string =
-      `${config.loginDialogURL}?${queryParams.join('&')}`;
+      `${config.loginDialogURL}?${[ ...queryParams, ...commonQueryParams ].join('&')}`;
 
     return redirectURL;
   }
