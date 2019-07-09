@@ -1,3 +1,4 @@
+import { ClickDelegateDirective } from './directives/click-delegate.directive';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
@@ -12,6 +13,10 @@ export const modules = [
   FontAwesomeModule,
 ];
 
+export const directives = [
+  ClickDelegateDirective,
+];
+
 export const components = [
   MainComponent,
 ];
@@ -22,11 +27,13 @@ export const components = [
     ...modules,
   ],
   declarations: [
+    ...directives,
     ...components,
   ],
   exports: [
     CommonModule,
     ...modules,
+    ...directives,
     ...components,
   ],
 })
