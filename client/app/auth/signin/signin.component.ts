@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { AuthService } from './../../core/auth/auth.service';
 
-import * as Enums from '../shared/auth.enums';
+import * as Constants from '../../shared/constants';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,32 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./signin.component.scss']
 })
 export class SignInComponent {
-  public socialButtons: any[] = [
-    {
-      provider: Enums.AuthProvider.Google,
-      class: 'google',
-      icon: 'google-plus-g',
-      label: `Google+`,
-    },
-    {
-      provider: Enums.AuthProvider.Facebook,
-      class: 'facebook',
-      icon: 'facebook-f',
-      label: `Facebook`,
-    },
-    {
-      provider: Enums.AuthProvider.Twitter,
-      class: 'twitter',
-      icon: 'twitter',
-      label: `Twitter`,
-    },
-    {
-      provider: Enums.AuthProvider.Vkontakte,
-      class: 'vkontakte',
-      icon: 'vk',
-      label: `Vkontakte`,
-    },
-  ];
+  public socialButtons = Constants.User.Socials;
 
   constructor(
     private authService: AuthService,

@@ -7,7 +7,7 @@
       <mat-card-content fxLayout="column" (click)="onClickSignIn($event)">
         <button
             *ngFor="let socialButton of socialButtons"
-            type="button" mat-flat-button [ngClass]="socialButton.class"
+            type="button" mat-flat-button [ngClass]="socialButton.provider"
             fxLayout="row" fxLayoutAlign="center center"
             [attr.data-id]="socialButton.provider">
           <fa-icon [icon]="['fab', socialButton.icon]" size="lg"></fa-icon>
