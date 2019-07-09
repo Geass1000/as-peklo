@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MainComponent } from './components/main/main.component';
 
 
 export const modules = [
@@ -11,15 +12,22 @@ export const modules = [
   FontAwesomeModule,
 ];
 
+export const components = [
+  MainComponent,
+];
+
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     ...modules,
   ],
+  declarations: [
+    ...components,
+  ],
   exports: [
     CommonModule,
     ...modules,
-  ]
+    ...components,
+  ],
 })
 export class SharedModule {}
