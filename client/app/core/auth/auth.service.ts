@@ -6,8 +6,8 @@ import { from, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
-import * as Interfaces from './auth.interfaces';
 import { API } from '../../../../shared/interfaces';
+import * as Shared from '../../../../shared';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,10 @@ export class AuthService {
    * Provider logic
    */
 
-  public getRedirectURL (providerName: string, redirectOpts: Interfaces.RedirectOptions): API.RxResult<string> {
+  public getRedirectURL (
+    providerName: string,
+    redirectOpts: Shared.Interfaces.Auth.RedirectOptions,
+  ): API.RxResult<string> {
     return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, redirectOpts)
       .pipe(
         tap((data) => {
@@ -71,7 +74,7 @@ export class AuthService {
    * Token logic
    */
 
-  public setToken (token: Interfaces.AccessToken.Type): void {
+  public setToken (token: Shared.Interfaces.Auth.AccessToken.Type): void {
     localStorage.setItem(Constants.LocalStorage.AccessToken, token);
   }
 
@@ -79,14 +82,14 @@ export class AuthService {
     localStorage.removeItem(Constants.LocalStorage.AccessToken);
   }
 
-  public getToken (): Interfaces.AccessToken.Type {
-    const accessToken: Interfaces.AccessToken.Type =
+  public getToken (): Shared.Interfaces.Auth.AccessToken.Type {
+    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
     return accessToken;
   }
 
-  public getTokenData (): Interfaces.AccessToken.Data {
-    const accessToken: Interfaces.AccessToken.Type =
+  public getTokenData (): Shared.Interfaces.Auth.AccessToken.Data {
+    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
 
     try {
@@ -102,7 +105,7 @@ export class AuthService {
   }
 
   public isExpired (): boolean {
-    const accessToken: Interfaces.AccessToken.Type =
+    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
 
     try {

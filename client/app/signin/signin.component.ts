@@ -1,4 +1,4 @@
-import { AuthService } from './../core/services/auth/auth.service';
+import { AuthService } from '../core/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -24,9 +24,9 @@ export class SigninComponent {
 
   public onSubmit() {
     // TODO: Use EventEmitter with form value
-    this.authService.signIn(this.form.value)
-      .subscribe((authToken) => {
-        console.log(authToken);
-      });
+    // this.authService.signIn(this.form.value)
+    //   .subscribe((authToken) => {
+    //     console.log(authToken);
+    //   });
   }
 }

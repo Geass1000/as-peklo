@@ -12,7 +12,6 @@ import { TokenService } from './token.service';
 import { AuthService } from './auth.service';
 
 import * as Constants from './shared/auth.constants';
-import * as Interfaces from './shared/auth.interfaces';
 import * as Shared from './../../../../shared';
 
 @Nest.UseInterceptors(ResultInterceptor)
@@ -28,7 +27,9 @@ export class AuthController {
    */
 
   @Nest.Post(Constants.Routes.Facebook.Redirect)
-  public facebookRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+  public facebookRedirectURI (
+    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+  ): string {
     return this.authService.getFacebookRedirect(data);
   }
 
@@ -37,7 +38,7 @@ export class AuthController {
   public async facebookSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Decorators.User() profile: any,
-  ): Promise<Interfaces.AccessToken.Type> {
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Facebook,
       authHeader,
@@ -50,7 +51,9 @@ export class AuthController {
    */
 
   @Nest.Post(Constants.Routes.Google.Redirect)
-  public googleRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+  public googleRedirectURI (
+    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+  ): string {
     return this.authService.getGoogleRedirect(data);
   }
 
@@ -59,7 +62,7 @@ export class AuthController {
   public async googleSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Decorators.User() profile: any,
-  ): Promise<Interfaces.AccessToken.Type> {
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Google,
       authHeader,
@@ -72,7 +75,9 @@ export class AuthController {
    */
 
   @Nest.Post(Constants.Routes.Vkontakte.Redirect)
-  public vkontakteRedirectURI (@Nest.Body() data: Interfaces.RedirectOptions): string {
+  public vkontakteRedirectURI (
+    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+  ): string {
     return this.authService.getVkontakteRedirect(data);
   }
 
@@ -81,7 +86,7 @@ export class AuthController {
   public async vkontakteSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Decorators.User() profile: any,
-  ): Promise<Interfaces.AccessToken.Type> {
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Vkontakte,
       authHeader,

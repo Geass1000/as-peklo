@@ -7,7 +7,6 @@ import * as User from '../user';
 import * as Shared from './../../../../shared';
 
 import * as Enums from './shared/auth.enums';
-import * as Interfaces from './shared/auth.interfaces';
 
 @Nest.Injectable()
 export class TokenService {
@@ -21,7 +20,7 @@ export class TokenService {
     provider: Shared.Enums.User.SocialProvider,
     authHeader: string,
     profile: any,
-  ): Promise<Interfaces.AccessToken.Type> {
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     const tokenData = this.getTokenDataFromAuthHeader(authHeader);
     const userId =  _.get(tokenData, 'userId', null);
 
@@ -31,7 +30,7 @@ export class TokenService {
   }
 
   public async validateAccessToken (
-    token: Interfaces.AccessToken.Data,
+    token: Shared.Interfaces.Auth.AccessToken.Data,
   ): Promise<boolean> {
     try {
       const user = await this.userModel.getById(token.userId);
@@ -43,12 +42,12 @@ export class TokenService {
 
   public getTokenDataFromAuthHeader (
     header: string,
-  ): Interfaces.AccessToken.Data {
+  ): Shared.Interfaces.Auth.AccessToken.Data {
     try {
       // Extracts token from header (Bearer + token)
       const token = _.split(header, ' ')[1];
       // Extracts token data from token
-      return this.jwtService.decode(token) as Interfaces.AccessToken.Data;
+      return this.jwtService.decode(token) as Shared.Interfaces.Auth.AccessToken.Data;
     } catch (error) {
       return null;
     }
@@ -56,7 +55,7 @@ export class TokenService {
 
   public createJWTToken (
     user: User.Interfaces.UserDocument,
-  ): Interfaces.AccessToken.Type {
+  ): Shared.Interfaces.Auth.AccessToken.Type {
     return this.jwtService.sign({ userId: user._id, roles: user.roles, });
   }
 

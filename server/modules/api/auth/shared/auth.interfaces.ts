@@ -1,16 +1,4 @@
 
-export namespace AccessToken {
-  export type Type = string;
-
-  export interface Data {
-    userId: string;
-  }
-}
-
-export interface SignIn {
-  accessToken: AccessToken.Type;
-}
-
 export namespace Config {
   export interface OAuth {
     readonly clientId: string;
@@ -31,6 +19,3 @@ export namespace Config {
   }
 }
 
-export interface RedirectOptions {
-  state: string;
-}
