@@ -1,9 +1,9 @@
-import { BaseComponent } from './../../shared/base/base.component';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
+import { BaseComponent } from './../../shared/base/base.component';
+import { ProfileAction } from './../../redux/actions/profile.action';
 import { AuthService } from './../../core/auth/auth.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class SocialCallbackComponent extends BaseComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     @Inject(PLATFORM_ID) private readonly platformId: any,
+    private profileAction: ProfileAction,
   ) { super(); }
 
   public ngOnInit() {
@@ -34,6 +35,8 @@ export class SocialCallbackComponent extends BaseComponent implements OnInit {
 
       this.authService.signIn(provider, code)
         .subscribe(() => {
+          const tokenData = this.authService.getTokenData();
+          this.profileAction.setUserId(tokenData.userId);
           this.router.navigate([ `/` ], { replaceUrl: true });
         });
     });
