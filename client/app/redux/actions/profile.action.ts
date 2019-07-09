@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { dispatch } from '@angular-redux/store';
+import { ActionBase } from './../core/action.base';
 
 /* Interfaces */
 import * as Events from '../events';
@@ -10,7 +11,8 @@ import { User } from '../../../../shared/interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class ProfileAction {
+export class ProfileAction extends ActionBase {
+  protected events = Events.Profile;
 
   @dispatch()
   setUserId = (userId: string): Interfaces.Action => ({
