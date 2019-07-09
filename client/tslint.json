@@ -7,6 +7,7 @@
       "severity": "warn"
     },
     "no-namespace": false,
+    "no-redundant-jsdoc": false,
     "no-empty-interface": false,
     "space-before-function-paren": false,
     "component-class-suffix": true,
@@ -61,7 +62,6 @@
       "ignore-params"
     ],
     "no-non-null-assertion": true,
-    "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
     "no-var-requires": false,
