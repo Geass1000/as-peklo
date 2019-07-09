@@ -1,9 +1,4 @@
 import * as Nest from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-
-import * as _ from 'lodash';
-
-import * as User from '../user';
 
 import * as Constants from './shared/auth.constants';
 import * as Interfaces from './shared/auth.interfaces';
@@ -12,8 +7,6 @@ import * as Interfaces from './shared/auth.interfaces';
 export class AuthService {
 
   constructor (
-    private readonly jwtService: JwtService,
-    private readonly userModel: User.UserModel,
     @Nest.Inject(Constants.DI.Config.Google)
       private readonly googleConfig: Interfaces.Config.Google,
     @Nest.Inject(Constants.DI.Config.Facebook)
@@ -24,19 +17,6 @@ export class AuthService {
   }
 
   public createToken (user: User.Interfaces.UserDocument): Interfaces.AccessToken.Type {
-    const accessToken = this.jwtService.sign({ userId: user._id, roles: user.roles, });
-    return accessToken;
-  }
-
-  public async validateToken (token: Interfaces.AccessToken.Data): Promise<boolean> {
-    try {
-      const user = await this.userModel.getById(token.userId);
-      return !_.isUndefined(user);
-    } catch (error) {
-      return false;
-    };
-  }
-
   public getFacebookRedirect (): Interfaces.RedirectOptions {
     const queryParams: string[] = [
       `client_id=${this.facebookConfig.clientId}`,
