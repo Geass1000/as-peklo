@@ -2,8 +2,6 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 import { Model, Document, DocumentQuery } from 'mongoose';
 
-import { Interfaces } from './shared';
-
 export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';
   public model: Model<IModelDoc>;
@@ -22,10 +20,9 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    */
   public aggregateMany<IResult> (
     aggregations: any[],
-  ): Bluebird<Interfaces.Result.Many<IResult>> {
+  ): Bluebird<IResult[]> {
     const query = this.model.aggregate(aggregations);
-    return Bluebird.resolve(query.exec())
-      .then((result: IResult[]) => ({ result }));
+    return Bluebird.resolve(query.exec());
   }
 
   /**
@@ -36,10 +33,10 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    */
   public aggregateOne<IResult> (
     aggregations: any[],
-  ): Bluebird<Interfaces.Result.One<IResult>> {
+  ): Bluebird<IResult> {
     const query = this.model.aggregate(aggregations);
     return Bluebird.resolve(query.exec())
-      .then((result: any[]) => ({ result: result[0] || null }));
+      .then((result: any[]) => result[0] || null);
   }
 
   /**
