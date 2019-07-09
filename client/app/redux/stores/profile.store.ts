@@ -3,10 +3,11 @@ import * as _ from 'lodash';
 import * as Interfaces from '../core/redux.interfaces';
 
 import * as Events from '../events';
+import { User } from '../../../../shared/interfaces';
 
 export interface Interface {
   id: string;
-  socials: any[];
+  socials: User.Social[];
 }
 
 export const InitialState: Interface = {
