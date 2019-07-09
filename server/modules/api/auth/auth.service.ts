@@ -39,28 +39,22 @@ export class AuthService {
     return this.getRedirect(this.vkontakteConfig, queryParams, redirectOpts);
   }
 
-  public getCommonQueryRedirect (
-    config: Interfaces.Config.OAuth,
-    data: Interfaces.RedirectOptions
-  ): string[] {
-    return [
+  public getRedirect<T extends Interfaces.Config.OAuth> (
+    config: T,
+    specificQueryParams: string[],
+    redirectOpts: Interfaces.RedirectOptions,
+  ): string {
+    const queryParams = [
       `response_type=code`,
-      `state=${data.state}`,
+      `state=${redirectOpts.state}`,
       `client_id=${config.clientId}`,
       `redirect_uri=${config.oauthRedirectURL}`,
       `scope=${config.scope.join(' ')}`,
+      ...specificQueryParams,
     ];
-  }
-
-  public getRedirect<T extends Interfaces.Config.OAuth> (
-    config: T,
-    queryParams: string[],
-    redirectOpts: Interfaces.RedirectOptions,
-  ): string {
-    const commonQueryParams = this.getCommonQueryRedirect(config, redirectOpts);
 
     const redirectURL: string =
-      `${config.loginDialogURL}?${[ ...queryParams, ...commonQueryParams ].join('&')}`;
+      `${config.loginDialogURL}?${queryParams.join('&')}`;
 
     return redirectURL;
   }
