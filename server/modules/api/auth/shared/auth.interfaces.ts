@@ -17,24 +17,20 @@ export namespace Config {
     readonly clientSecret: string;
     readonly loginDialogURL: string;
     readonly oauthRedirectURL: string;
+    readonly scope: string[];
   }
 
   export interface Google extends OAuth {
-    readonly responseType: string;
-    readonly scopes: string[];
   }
 
   export interface Vkontakte extends OAuth {
-    readonly responseType: string;
-    readonly scopes: string[];
     readonly v: string;
   }
 
   export interface Facebook extends OAuth {
-    readonly state: string;
   }
 }
 
 export interface RedirectOptions {
-  url: string;
+  state: string;
 }

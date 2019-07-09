@@ -7,8 +7,7 @@ export const GoogleConfig: Interfaces.Config.Google = {
   clientSecret: process.env.GOOGLE_SECRET,
   loginDialogURL: 'https://accounts.google.com/o/oauth2/auth',
   oauthRedirectURL: `${environment.server.protocol}://${environment.server.domain}:4200/auth/callback/google`,
-  responseType: 'code',
-  scopes: [
+  scope: [
     'profile',
     'email',
   ],
