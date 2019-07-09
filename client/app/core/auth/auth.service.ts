@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
 import * as Interfaces from './auth.interfaces';
@@ -29,6 +29,11 @@ export class AuthService {
     return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, {
       state: destURL,
     })
+      .pipe(
+        tap((redirectOpts) => {
+          window.location.replace(redirectOpts.result);
+        })
+      );
   }
 
   public signIn (providerName: string, code: string): API.RxResult<string> {

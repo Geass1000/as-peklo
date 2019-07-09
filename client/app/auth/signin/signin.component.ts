@@ -20,8 +20,6 @@ export class SignInComponent {
 
   public onClickSignIn(event: Interfaces.Directive.DelegateEvent) {
     this.authService.getRedirectURL(event.id, '/')
-      .subscribe((redirectOpts) => {
-        window.location.replace(redirectOpts.result);
-      });
+      .subscribe((redirectOpts) => {});
   }
 }
