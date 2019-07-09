@@ -1,3 +1,4 @@
+import { ProfileAction } from './../../redux/actions/profile.action';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,11 +13,13 @@ export class SignOutComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly profileAction: ProfileAction,
   ) { }
 
   public ngOnInit() {
     this.authService.signOut()
       .subscribe(() => {
+        this.profileAction.resetStore();
         this.router.navigate([ `/` ], { replaceUrl: true });
       });
   }
