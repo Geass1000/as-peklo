@@ -25,8 +25,10 @@ export class AuthService {
    * Provider logic
    */
 
-  public getRedirectURL (providerName: string): API.RxResult<string> {
-    return this.http.get<API.Result<string> >(`${this.apiAuth}/${providerName}/redirect`);
+  public getRedirectURL (providerName: string, destURL: string): API.RxResult<string> {
+    return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, {
+      state: destURL,
+    })
   }
 
   public signIn (providerName: string, code: string): API.RxResult<string> {
