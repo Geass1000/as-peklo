@@ -118,7 +118,7 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
    */
   public updateById(
     id: string,
-    obj: IModelDoc,
+    obj: IModel,
     asPromise: boolean = true,
   ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
     if (!_.isString(id) || !id) {
