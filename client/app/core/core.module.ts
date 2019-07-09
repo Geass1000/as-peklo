@@ -1,13 +1,18 @@
-import { LayoutModule } from './layout/layout.module';
 import { NgModule } from '@angular/core';
-import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
-
-import { SharedModule } from '../shared/shared.module';
-import { AuthModule } from './auth/auth.module';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTwitter, faGooglePlusG, faFacebookF, faVk } from '@fortawesome/free-brands-svg-icons';
+
+import { SharedModule } from '../shared/shared.module';
+import { LayoutModule } from './layout/layout.module';
+import { AuthModule } from './auth/auth.module';
+
+import { UserService } from './services/user.service';
+
+const providers = [
+  UserService,
+];
 
 @NgModule({
   imports: [
@@ -15,6 +20,9 @@ import { faTwitter, faGooglePlusG, faFacebookF, faVk } from '@fortawesome/free-b
     HttpClientModule,
     AuthModule,
     LayoutModule,
+  ],
+  providers: [
+    ...providers,
   ],
   exports: [
     LayoutModule,
