@@ -1,0 +1,37 @@
+<app-shared-main
+    fxLayout="column"
+    fxLayoutAlign="start start"
+    appClickDelegate
+    [tagSelector]="'.social-card'"
+    (clickDelegate)="onClick($event)">
+  <mat-card 
+      *ngFor="let social of socials$ | async"
+      class="social-card"
+      [attr.data-id]="social.provider"
+      [ngClass]="social.provider">
+    
+    <mat-card-header>
+
+      <div mat-card-avatar fxLayoutAlign="center center">
+        <fa-icon [icon]="['fab', getIcon(social.provider)]" size="lg"></fa-icon>
+      </div>
+
+      <mat-card-title>{{social.provider | titlecase}}</mat-card-title>
+      <mat-card-subtitle>{{social.creds ? social.creds.id : 'None'}}</mat-card-subtitle>
+      
+      <button mat-icon-button *ngIf="!social.creds" class="flex-divider" data-type="add">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-icon-button *ngIf="social.creds" class="flex-divider" data-type="change">
+        <fa-icon [icon]="['fas', 'exchange-alt']" size="lg"></fa-icon>
+      </button>
+
+    </mat-card-header>
+
+    <mat-card-content *ngIf="social.creds">
+      <p><strong>E-mail:</strong> {{social.creds.email}}</p>
+    </mat-card-content>
+
+  </mat-card>
+</app-shared-main>

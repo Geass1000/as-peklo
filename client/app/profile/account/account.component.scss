@@ -1,0 +1,31 @@
+
+.social-card {
+  min-width: 300px;
+  margin-bottom: 15px;
+}
+
+.flex-divider {
+  margin-left: auto;
+}
+
+
+.mat-card-avatar {
+  color: white;
+
+}
+
+.facebook .mat-card-avatar {
+  background-color: #3b5998;
+}
+
+.google .mat-card-avatar {
+  background-color: #dd4b39;
+}
+
+.twitter .mat-card-avatar {
+  background-color: #55acee;
+}
+
+.vkontakte .mat-card-avatar {
+  background-color: #4c75a3;
+}
