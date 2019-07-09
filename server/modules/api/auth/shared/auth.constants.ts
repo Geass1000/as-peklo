@@ -7,6 +7,10 @@ export namespace DI {
   }
 }
 
+export namespace Header {
+  export const Authorization: string = `authorization`;
+}
+
 export namespace Routes {
   export namespace Google {
     const BaseURI = `google`;
