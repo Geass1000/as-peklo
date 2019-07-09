@@ -11,19 +11,21 @@ export interface Interface {
 
 export const InitialState: Interface = {
   id: null,
-  socials: [],
+  socials: null,
 };
 
-export const Reducer: ReduxReducer<Interface> = (state = InitialState, action: Interfaces.Action): Interface => {
+export const Reducer: ReduxReducer<Interface> = (state = { ...InitialState, }, action: Interfaces.Action): Interface => {
   switch (action.type) {
     case Events.Profile.SetUserId: {
       const userId = action.payload.userId || null;
-      return _.assign({}, state, { id: userId, });
+      return { ...state, id: userId, };
     }
     case Events.Profile.SetUserSocials: {
       const userSocials = action.payload.userSocials || [];
-      console.log(userSocials);
-      return _.assign({}, state, { socials: userSocials, });
+      return { ...state, socials: userSocials, };
+    }
+    case Events.Profile.ResetStore: {
+      return { ...InitialState, };
     }
   }
   return state;
