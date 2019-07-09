@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './../../core/auth/auth.service';
 
 import * as Constants from '../../shared/constants';
+import * as Interfaces from './../../shared/interfaces/';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,19 +18,8 @@ export class SignInComponent {
     private authService: AuthService,
   ) {}
 
-  public onClickSignIn(event: any) {
-    if (!event || !event.target) {
-      throw new Error('Event variable does not exist!');
-    }
-    const el: Element = (event.target as Element).closest('button');
-
-    if (!el) {
-      throw new Error('Element was not selected!');
-    }
-
-    const provider: string = el.getAttribute('data-id');
-
-    this.authService.getRedirectURL(provider)
+  public onClickSignIn(event: Interfaces.Directive.DelegateEvent) {
+    this.authService.getRedirectURL(event.id)
       .subscribe((redirectOpts) => {
         window.location.replace(redirectOpts.result);
       });
