@@ -10,6 +10,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
 import { authProviders } from './auth.providers';
+import { TokenService } from './token.service';
 
 @Nest.Module({
   imports: [
@@ -21,6 +22,7 @@ import { authProviders } from './auth.providers';
     AuthController,
   ],
   providers: [
+    TokenService,
     AuthService,
     ...authProviders,
   ],
