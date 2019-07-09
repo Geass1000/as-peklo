@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Games } from './games.interfaces';
+import { Games } from './shared/games.interfaces';
 
 export class GamesHelper {
   public static getFactoryContracts (gameInfo: any, factoryId: number): Games.Contract[] {

@@ -1,17 +1,13 @@
 import * as WS from '@nestjs/websockets';
-import { Client, Server } from 'socket.io';
+import { Client } from 'socket.io';
 
 import * as _ from 'lodash';
 import * as Rx from 'rxjs';
 
-import { User } from './../../../decorators';
-
 import { GamesService } from './games.service';
-import * as Interfaces from './games.interfaces';
-import * as Nest from '@nestjs/common';
 import { GamesHelper } from './games.helper';
-import * as DTO from './games.dto';
-import * as Enums from './games.enums';
+import * as DTO from './shared/games.dto';
+import * as Enums from './shared/games.enums';
 
 @WS.WebSocketGateway()
 export class GamesController {

@@ -3,12 +3,10 @@ import * as Bluebird from 'bluebird';
 import * as xml2js from 'xml2js';
 import * as _ from 'lodash';
 
-import { Games } from './games.interfaces';
+import { Games } from './shared/games.interfaces';
 
-import * as DTO from './games.dto';
-import { RequestService } from '../../../core/sevices/request';
-import * as RequestInterfaces from '../../../core/sevices/request/request.interfaces';
-import * as RequestEnums from '../../../core/sevices/request/request.enums';
+import * as DTO from './shared/games.dto';
+import * as Request from '../../core/request';
 
 type ContractId = string;
 type SId = string;
@@ -16,7 +14,7 @@ type SId = string;
 @Nest.Injectable()
 export class GamesService {
   constructor (
-    private requestService: RequestService
+    private requestService: Request.RequestService
   ) {}
 
   async signIn (authCreds: DTO.SignIn): Promise<SId> {
@@ -95,12 +93,12 @@ export class GamesService {
     return _.get(respData, 'response');
   }
 
-  private getReqOptions (path: string, data: any): RequestInterfaces.Request.Options {
+  private getReqOptions (path: string, data: any): Request.Interfaces.Request.Options {
     return {
       domainName: 'https://game-r02vk.rjgplay.com',
       port: 80,
       path: path,
-      method: RequestEnums.RequestType.Post,
+      method: Request.Enums.RequestType.Post,
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
