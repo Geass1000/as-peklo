@@ -32,12 +32,13 @@ export class SocialCallbackComponent extends BaseComponent implements OnInit {
 
       const code = params.get('code');
       const provider = socialURL[0].path;
+      const destURL = params.get('state') || '/';
 
       this.authService.signIn(provider, code)
         .subscribe(() => {
           const tokenData = this.authService.getTokenData();
           this.profileAction.setUserId(tokenData.userId);
-          this.router.navigate([ `/` ], { replaceUrl: true });
+          this.router.navigate([ destURL ], { replaceUrl: true });
         });
     });
   }
