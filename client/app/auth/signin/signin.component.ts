@@ -31,7 +31,7 @@ export class SignInComponent {
 
     this.authService.getRedirectURL(provider)
       .subscribe((redirectOpts) => {
-        window.location.replace(redirectOpts.url);
+        window.location.replace(redirectOpts.result);
       });
   }
 }

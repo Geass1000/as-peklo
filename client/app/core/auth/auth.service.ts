@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
 import * as Interfaces from './auth.interfaces';
+import { API } from '../../../../shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +25,12 @@ export class AuthService {
    * Provider logic
    */
 
-  public getRedirectURL (providerName: string): Observable<Interfaces.RedirectOptions> {
-    return this.http.get<Interfaces.RedirectOptions>(`${this.apiAuth}/${providerName}/redirect`);
+  public getRedirectURL (providerName: string): API.RxResult<string> {
+    return this.http.get<API.Result<string> >(`${this.apiAuth}/${providerName}/redirect`);
   }
 
-  public signIn (providerName: string, code: string): Observable<Interfaces.SignIn> {
-    const req = this.http.get<Interfaces.SignIn>(`${this.apiAuth}/${providerName}/signin?code=${code}`);
+  public signIn (providerName: string, code: string): API.RxResult<string> {
+    const req = this.http.get<API.Result<string>>(`${this.apiAuth}/${providerName}/signin?code=${code}`);
     return this.signInHandler(req);
   }
 
@@ -49,14 +50,14 @@ export class AuthService {
     return from(removeTokenPromise);
   }
 
-  public refreshToken (): Observable<Interfaces.SignIn> {
-    const req = this.http.get<Interfaces.SignIn>(`api/v1/auth/refresh`);
+  public refreshToken (): API.RxResult<string> {
+    const req = this.http.get<API.Result<string>>(`api/v1/auth/refresh`);
     return this.signInHandler(req);
   }
 
-  private signInHandler (req: Observable<Interfaces.SignIn>): Observable<Interfaces.SignIn> {
+  private signInHandler (req: API.RxResult<string>): API.RxResult<string> {
     return req.pipe(map((data) => {
-      this.setToken(data.accessToken);
+      this.setToken(data.result);
       return data;
     }));
   }
