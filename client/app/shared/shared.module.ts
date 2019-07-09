@@ -1,10 +1,14 @@
-import { ClickDelegateDirective } from './directives/click-delegate.directive';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from './material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { MaterialModule } from './material.module';
+
+import { ClickDelegateDirective } from './directives/click-delegate.directive';
+
 import { MainComponent } from './components/main/main.component';
+import { NopeComponent } from './components/nope/nope.component';
 
 
 export const modules = [
@@ -19,6 +23,7 @@ export const directives = [
 
 export const components = [
   MainComponent,
+  NopeComponent,
 ];
 
 @NgModule({
