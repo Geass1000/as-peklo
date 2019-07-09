@@ -8,12 +8,14 @@ import { AppRouter } from './app.router';
 
 import { AppComponent } from './app.component';
 import { components } from './app.router';
+import { ReduxModule } from './redux/redux.module';
 
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'web-api' }),
     BrowserTransferStateModule,
     BrowserAnimationsModule,
+    ReduxModule,
     CoreModule,
     ...sharedModules,
     AppRouter,
