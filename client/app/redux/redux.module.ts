@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { SharedModule } from '../shared/shared.module';
 import * as Store from './stores/store';
 
-import { AppAction, ProfileAction } from './actions';
+import { ProfileAction } from './actions';
 
 @NgModule({
   imports: [
@@ -13,7 +13,6 @@ import { AppAction, ProfileAction } from './actions';
     NgReduxModule,
   ],
   providers: [
-    AppAction,
     ProfileAction,
   ],
 })
