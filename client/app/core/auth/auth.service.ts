@@ -1,13 +1,12 @@
-import { Observable } from 'rxjs/Observable';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
 import * as Interfaces from './auth.interfaces';
-import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +56,7 @@ export class AuthService {
 
   private signInHandler (req: Observable<Interfaces.SignIn>): Observable<Interfaces.SignIn> {
     return req.pipe(map((data) => {
-      localStorage.setItem(Constants.LocalStorage.AccessToken, data.accessToken);
+      this.setToken(data.accessToken);
       return data;
     }));
   }
