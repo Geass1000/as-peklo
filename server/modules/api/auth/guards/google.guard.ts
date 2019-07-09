@@ -10,7 +10,7 @@ export class GoogleGuard extends AuthGuard('google') {
     @Nest.Inject(Constants.DI.Config.Google)
       private readonly googleConfig: Interfaces.Config.Google,
   ) {
-    super({ scope: googleConfig.scopes });
+    super({ scope: googleConfig.scope });
   }
 
   async canActivate (context: Nest.ExecutionContext): Promise<any> {

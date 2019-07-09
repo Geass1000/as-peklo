@@ -10,7 +10,7 @@ export class VkontakteGuard extends AuthGuard('vkontakte') {
     @Nest.Inject(Constants.DI.Config.Vkontakte)
       private readonly config: Interfaces.Config.Vkontakte,
   ) {
-    super({ scope: config.scopes });
+    super({ scope: config.scope });
   }
 
   async canActivate (context: Nest.ExecutionContext): Promise<any> {
