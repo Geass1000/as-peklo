@@ -1,30 +1,14 @@
 import { Document } from 'mongoose';
 
-export namespace User {
-  export interface GoogleCreads {
-    id: string;
-    email: string;
-  }
-
-  export interface FacebookCreads {
-    id: string;
-    email: string;
-  }
-
-  export interface VkontakteCreads {
-    id: string;
-    email: string;
-  }
-}
+import * as SharedInterfaces from '../../../../../shared/interfaces';
 
 export interface User {
   roles: [ String ];
-  google?: User.GoogleCreads;
-  facebook?: User.FacebookCreads;
-  vkontakte?: User.VkontakteCreads;
+  google?: SharedInterfaces.User.SocialCreds;
+  facebook?: SharedInterfaces.User.SocialCreds;
+  vkontakte?: SharedInterfaces.User.SocialCreds;
 }
 
 export interface UserDocument extends User, Document {
 }
-
 
