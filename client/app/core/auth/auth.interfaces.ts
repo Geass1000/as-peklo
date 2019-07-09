@@ -12,5 +12,5 @@ export interface SignIn {
 }
 
 export interface RedirectOptions {
-  url: string;
+  state: string;
 }

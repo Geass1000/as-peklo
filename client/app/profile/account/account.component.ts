@@ -48,8 +48,8 @@ export class AccountComponent implements OnInit {
   }
 
   public onClickAdd (provider: string) {
-    this.authService.getRedirectURL(provider, '/profile')
-      .subscribe((redirectOpts) => {});
+    this.authService.getRedirectURL(provider, { state: '/profile' })
+      .subscribe(() => {});
   }
 
   public onClickChange (provider: string) {

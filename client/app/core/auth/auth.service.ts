@@ -25,13 +25,11 @@ export class AuthService {
    * Provider logic
    */
 
-  public getRedirectURL (providerName: string, destURL: string): API.RxResult<string> {
-    return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, {
-      state: destURL,
-    })
+  public getRedirectURL (providerName: string, redirectOpts: Interfaces.RedirectOptions): API.RxResult<string> {
+    return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, redirectOpts)
       .pipe(
-        tap((redirectOpts) => {
-          window.location.replace(redirectOpts.result);
+        tap((data) => {
+          window.location.replace(data.result);
         })
       );
   }
