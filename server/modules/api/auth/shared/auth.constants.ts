@@ -7,6 +7,10 @@ export namespace DI {
   }
 }
 
+export namespace ReflectMetadata {
+  export const Roles: string = `roles`;
+}
+
 export namespace Header {
   export const Authorization: string = `authorization`;
 }
