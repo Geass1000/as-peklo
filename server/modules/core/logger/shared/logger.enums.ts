@@ -37,7 +37,7 @@ export enum TextColor {
   BrightWhite = '\x1b[97m',
 }
 
-export enum BgColor {
+export enum TextBackground {
   Black = '\x1b[40m',
   Red = '\x1b[41m',
   Green = '\x1b[42m',

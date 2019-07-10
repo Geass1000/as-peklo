@@ -30,12 +30,12 @@ export class StyleService {
     }
     const textColor = this
       .calculatedStyles[logLevel].colors[fieldName];
-    const textBg = this
+    const textBackground = this
       .calculatedStyles[logLevel].backgrounds[fieldName];
     const textEffect = this
       .calculatedStyles[logLevel].effects[fieldName];
 
-    return `${textColor}${textBg}${textEffect}`;
+    return `${textColor}${textBackground}${textEffect}`;
   }
 
   public useStyle (
@@ -93,7 +93,7 @@ export class StyleService {
       || this.optionService
       .getFromOptions(`styles['common'].colors.${fieldName}`)
       || '';
-    const textBg = this.optionService
+    const textBackground = this.optionService
       .getFromOptions(`styles[${logLevel}].backgrounds.${fieldName}`)
       || this.optionService
       .getFromOptions(`styles['common'].backgrounds.${fieldName}`)
@@ -103,6 +103,6 @@ export class StyleService {
       || this.optionService
       .getFromOptions(`styles['common'].effects.${fieldName}`)
       || '';
-    return { color: textColor, background: textBg, effect: textEffect };
+    return { color: textColor, background: textBackground, effect: textEffect };
   }
 }

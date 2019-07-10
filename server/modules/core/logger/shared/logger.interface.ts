@@ -41,13 +41,13 @@ export namespace Options {
 
   export interface ElementStyle {
     color?: Enums.TextColor;
-    background?: Enums.BgColor;
+    background?: Enums.TextBackground;
     effect?: Enums.TextEffect;
   }
 
   export interface Style {
     colors?: Elements<Enums.TextColor>;
-    backgrounds?: Elements<Enums.BgColor>;
+    backgrounds?: Elements<Enums.TextBackground>;
     effects?: Elements<Enums.TextEffect>;
   }
 
