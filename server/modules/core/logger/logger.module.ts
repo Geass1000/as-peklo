@@ -1,3 +1,4 @@
+import { LoggerUtil } from './logger.util';
 import * as Nest from '@nestjs/common';
 
 import { Constants } from './shared';
@@ -14,6 +15,7 @@ import { TextService } from './text.service';
     OptionService,
     MessageService,
     TextService,
+    LoggerUtil,
     {
       provide: Constants.DI.DefaultLoggerOptions,
       useValue: DefaultOptions,

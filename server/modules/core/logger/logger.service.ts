@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { Interfaces, Constants, Enums } from './shared';
 import { MessageService } from './message.service';
 import { OptionService } from './option.service';
+import { LoggerUtil } from './logger.util';
 
 @Nest.Injectable({
   scope: Nest.Scope.TRANSIENT,
@@ -24,6 +25,7 @@ export class LoggerService {
   constructor(
     private optionService: OptionService,
     private messageService: MessageService,
+    private loggerUtil: LoggerUtil,
   ) {}
 
   /**
@@ -176,10 +178,10 @@ export class LoggerService {
       return;
     }
 
-    const timestamp = this.messageService.getTimestamp();
-    const filePath = this.messageService.getFilePath();
-    const fileName = this.messageService.getFileName(filePath);
-    const logLevelStr = this.messageService.getLogLevel(logLevel);
+    const timestamp = this.loggerUtil.getTimestamp();
+    const filePath = this.loggerUtil.getFilePath();
+    const fileName = this.loggerUtil.getFileName(filePath);
+    const logLevelStr = this.loggerUtil.getLogLevel(logLevel);
     const metainfo = {
       logLevel: logLevelStr,
       className: this.className,
