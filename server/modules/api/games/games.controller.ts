@@ -1,7 +1,7 @@
 import * as Nest from '@nestjs/common';
 import * as _ from 'lodash';
 
-import { APIController, User } from './../../../decorators';
+import { APIController, User } from '../../../core/decorators';
 
 import { GamesService } from './games.service';
 import { GamesHelper } from './games.helper';

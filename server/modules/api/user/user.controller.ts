@@ -3,7 +3,7 @@ import * as Nest from '@nestjs/common';
 import { Types } from 'mongoose';
 import * as _ from 'lodash';
 
-import * as Decorators from '../../../decorators';
+import * as Decorators from '../../../core/decorators';
 import { ResultInterceptor } from '../../../core/result.interceptor';
 import * as Exceptions from './../../../core/exceptions';
 
