@@ -12,6 +12,10 @@ export namespace Header {
 }
 
 export namespace Routes {
+  export namespace Auth {
+    export const RefreshToken: string = `refresh`;
+  }
+
   export namespace Google {
     const BaseURI = `google`;
     export const Redirect: string = `${BaseURI}/redirect`;

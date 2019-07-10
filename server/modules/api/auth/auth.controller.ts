@@ -23,6 +23,17 @@ export class AuthController {
   ) {}
 
   /**
+   * AUTH
+   */
+
+  @Nest.Get(Constants.Routes.Auth.RefreshToken)
+  public async refreshToken (
+    @Nest.Headers(Constants.Header.Authorization) authHeader: string,
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+    return this.tokenService.refreshAccessToken(authHeader);
+  }
+
+  /**
    * FACEBOOK
    */
 

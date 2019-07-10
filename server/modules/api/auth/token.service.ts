@@ -16,6 +16,34 @@ export class TokenService {
     private readonly userModel: User.UserModel,
   ) {}
 
+  public async refreshAccessToken (
+    authHeader: string,
+  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+    // Validate token (correct decoding) without expired time
+    const tokenData = this.getTokenDataFromAuthHeader(authHeader);
+
+    if (_.isNull(tokenData)) {
+      throw new Error(`Token has invalid format!`);
+    }
+
+    // Get user ID from token data
+    const userId = tokenData.userId;
+
+    if (_.isNil(userId)) {
+      throw new Error(`Token has invalid user ID!`);
+    }
+
+    // Get user by user ID from Database
+    const user = await this.userModel.getById(userId);
+
+    if (_.isNil(user)) {
+      throw new Error(`User (${userId} not found)!`);
+    }
+
+    // Create new token for user
+    return this.createJWTToken(user);
+  }
+
   public async createAccessToken (
     provider: Shared.Enums.User.SocialProvider,
     authHeader: string,
