@@ -1,22 +1,21 @@
-import { Types } from 'mongoose';
 import * as Nest from '@nestjs/common';
+
+import { Types } from 'mongoose';
 import * as _ from 'lodash';
 
 import * as Decorators from '../../../decorators';
-
 import { ResultInterceptor } from '../../../core/result.interceptor';
 import * as Exceptions from './../../../core/exceptions';
 
-import { JWTGuard } from './../auth/guards/jwt.guard';
+import * as Shared from '../../../../shared';
+import * as Auth from '../auth';
 
-import { UserModel } from './user.model';
 import { socialPartOfUserSchema } from './user.schema';
+import { UserModel } from './user.model';
 import { Interfaces } from './shared';
 
-import * as Shared from '../../../../shared';
-import * as AuthDecorators from '../auth/decorators';
 
-@Nest.UseGuards(JWTGuard)
+@Nest.UseGuards(Auth.Guards.JWTGuard)
 @Nest.UseInterceptors(ResultInterceptor)
 @Decorators.APIController(1, 'user')
 export class UserController {
@@ -24,7 +23,7 @@ export class UserController {
   constructor (private userModel: UserModel) {}
 
   @Nest.Get(`:userId`)
-  @AuthDecorators.UserGuard()
+  @Auth.Decorators.UserGuard()
   public async getSocialsByUserId (
     @Nest.Param('userId') userId: string,
   ): Promise<Shared.Interfaces.User.Social[]> {
