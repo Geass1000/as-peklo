@@ -167,19 +167,19 @@ export class LoggerService {
    * @returns void
    */
   private logMessages (
-    loglevel: Enums.LogLevel,
+    logLevel: Enums.LogLevel,
     methodName: string,
     firstMessage: any,
     restMessages: any[],
   ): void {
-    if (this.isDisabled(loglevel)) {
+    if (this.isDisabled(logLevel)) {
       return;
     }
 
     const timestamp = this.messageService.getTimestamp();
     const filePath = this.messageService.getFilePath();
     const fileName = this.messageService.getFileName(filePath);
-    const logLevelStr = this.messageService.getLogLevel(loglevel);
+    const logLevelStr = this.messageService.getLogLevel(logLevel);
     const metainfo = {
       logLevel: logLevelStr,
       className: this.className,
@@ -189,10 +189,10 @@ export class LoggerService {
       methodName,
     };
 
-    const metaMessage: string = this.messageService.prepareMetamessage(loglevel, metainfo);
-    const messages = this.messageService.prepareMessages([ firstMessage, ...restMessages ]);
+    const metaMessage: string = this.messageService.prepareMetamessage(metainfo);
+    const messages = this.messageService.prepareMessages(logLevel, [ firstMessage, ...restMessages ]);
 
-    this.callLogFunction(loglevel, metaMessage, messages);
+    this.callLogFunction(logLevel, metaMessage, messages);
   }
 
   /**
@@ -204,11 +204,11 @@ export class LoggerService {
    * @returns void
    */
   private callLogFunction (
-    loglevel: Enums.LogLevel,
+    logLevel: Enums.LogLevel,
     metaMessage: string,
     messages: any[],
   ): void {
-    switch (loglevel) {
+    switch (logLevel) {
       case Enums.LogLevel.Error:
         console.error(metaMessage, ...messages);
         break;
