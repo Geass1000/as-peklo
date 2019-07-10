@@ -189,7 +189,7 @@ export class LoggerService {
       methodName,
     };
 
-    const metaMessage: string = this.messageService.prepareMetamessage(metainfo);
+    const metaMessage: string = this.messageService.prepareMetamessage(logLevel, metainfo);
     const messages = this.messageService.prepareMessages(logLevel, [ firstMessage, ...restMessages ]);
 
     this.callLogFunction(logLevel, metaMessage, messages);

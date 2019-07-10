@@ -88,9 +88,16 @@ export class MessageService {
     }
   }
 
-  public prepareMessages (messages: any[]): string[] {
+  public prepareMessages (logLevel: Enums.LogLevel, messages: any[]): string[] {
+    const styleMessage = this.textService.calculateStyle(logLevel, 'message');
     const result = _.map(messages, (message, index) => {
-      return this.prepareMessage(message, index);
+      const preparedMessage = this.prepareMessage(message, index);
+      const tbeMessage = _.chain(preparedMessage)
+        .split('\n')
+        .map((part) => this.textService.useStyle(part, styleMessage))
+        .join('\n')
+        .value();
+      return tbeMessage;
     });
     return result;
   }
