@@ -23,21 +23,24 @@ export class TokenService {
     const tokenData = this.getTokenDataFromAuthHeader(authHeader);
 
     if (_.isNull(tokenData)) {
-      throw new Error(`Token has invalid format!`);
+      // Status: 400
+      throw new Exceptions.BadRequestException(`Token has invalid format`);
     }
 
     // Get user ID from token data
     const userId = tokenData.userId;
 
     if (_.isNil(userId)) {
-      throw new Error(`Token has invalid user ID!`);
+      // Status: 422
+      throw new Exceptions.UnprocessableEntityException(`Token has invalid user ID`);
     }
 
     // Get user by user ID from Database
     const user = await this.userModel.getById(userId);
 
     if (_.isNil(user)) {
-      throw new Error(`User (${userId} not found)!`);
+      // Status: 500
+      throw new Exceptions.InternalServerErrorException(`User (${userId} not found)`);
     }
 
     // Create new token for user
@@ -96,7 +99,8 @@ export class TokenService {
       await this.userModel.get({ [`${social}.id`]: profile.id });
 
     if (existingUser && !_.isNil(userId) && _.toString(existingUser._id) !== userId) {
-      throw new Error('User is already registred!');
+      // Status: 500
+      throw new Exceptions.InternalServerErrorException('User is already registred');
     }
 
     if (existingUser) {

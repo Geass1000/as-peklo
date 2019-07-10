@@ -4,6 +4,7 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 
 import { APIController } from '../../../decorators/api-controller.decorator';
+import * as Exceptions from './../../../core/exceptions';
 import { JWTGuard } from './../auth/guards/jwt.guard';
 
 import { UserModel } from './user.model';
@@ -23,8 +24,9 @@ export class UserController {
   public async getSocialsByUserId (
     @Nest.Param('id') id: string,
   ): Promise<SharedInterfaces.User.Social[]> {
-    if (_.isNil(id)) {
-      throw new Error(`User ID not defined!`);
+    if (_.isNil(userId)) {
+      // Status: 400
+      throw new Exceptions.BadRequestException(`User ID not defined`);
     }
 
     // Gets names of social fields
@@ -55,6 +57,11 @@ export class UserController {
           }
         }
       ]);
+
+    if (_.isUndefined(aggregateData)) {
+      // Status: 500
+      throw new Exceptions.InternalServerErrorException(`User not found`);
+    }
 
     return _.map(socialNames, (socialName) => {
       return { provider: socialName, creds: aggregateData[socialName], };
