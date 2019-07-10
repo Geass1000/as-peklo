@@ -4,13 +4,14 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 
 import { APIController } from '../../../decorators/api-controller.decorator';
+import { ResultInterceptor } from '../../../core/result.interceptor';
 import * as Exceptions from './../../../core/exceptions';
 import { JWTGuard } from './../auth/guards/jwt.guard';
 
 import { UserModel } from './user.model';
 import { Interfaces } from './shared';
 import { socialPartOfUserSchema } from './user.schema';
-import { ResultInterceptor } from '../../../core/result.interceptor';
+import { Interfaces } from './shared';
 import * as SharedInterfaces from '../../../../shared/interfaces';
 
 @Nest.UseGuards(JWTGuard)
@@ -44,7 +45,7 @@ export class UserController {
       }, {});
 
     // Finds User by ID
-    const aggregateData = await this.userModel.aggregateOne<any>([
+    const aggregateData = await this.userModel.aggregateOne<Interfaces.User.SocialPart>([
         {
           $match: {
             _id: new Types.ObjectId(id),
