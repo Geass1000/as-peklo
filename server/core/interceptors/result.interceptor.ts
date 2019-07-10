@@ -2,7 +2,7 @@ import * as Nest from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { API } from '../../shared/interfaces';
+import { API } from '../../../shared/interfaces';
 
 /**
  * Converts response data to `{ result: data }` JSON format.

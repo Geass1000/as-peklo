@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 import * as _ from 'lodash';
 
 import * as Decorators from '../../../core/decorators';
-import { ResultInterceptor } from '../../../core/result.interceptor';
+import { ResultInterceptor } from '../../../core/interceptors/result.interceptor';
 import * as Exceptions from './../../../core/exceptions';
 
 import * as Shared from '../../../../shared';
@@ -13,7 +13,6 @@ import * as Auth from '../auth';
 import { socialPartOfUserSchema } from './user.schema';
 import { UserModel } from './user.model';
 import { Interfaces } from './shared';
-
 
 @Nest.UseGuards(Auth.Guards.JWTGuard)
 @Nest.UseInterceptors(ResultInterceptor)

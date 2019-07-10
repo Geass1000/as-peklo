@@ -6,7 +6,7 @@ import { GoogleGuard } from './guards/google.guard';
 import { VkontakteGuard } from './guards/vkontakte.guard';
 
 import * as Decorators from '../../../core/decorators';
-import { ResultInterceptor } from '../../../core/result.interceptor';
+import { ResultInterceptor } from '../../../core/interceptors/result.interceptor';
 
 import { TokenService } from './token.service';
 import { AuthService } from './auth.service';
