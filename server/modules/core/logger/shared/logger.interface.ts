@@ -36,6 +36,13 @@ export namespace Options {
     methodName?: T;
     fileName?: T;
     filePath?: T;
+    [element: string]: T;
+  }
+
+  export interface ElementStyle {
+    color?: Enums.TextColor;
+    background?: Enums.BgColor;
+    effect?: Enums.TextEffect;
   }
 
   export interface Style {
