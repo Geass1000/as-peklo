@@ -27,26 +27,27 @@ export namespace Options {
     metamessage?: string;
   }
 
-  export interface Elements {
-    metamessage?: string;
-    message?: string;
-    logLevel?: string;
-    timestamp?: string;
-    className?: string;
-    methodName?: string;
-    fileName?: string;
-    filePath?: string;
+  export interface Elements<T> {
+    metamessage?: T;
+    message?: T;
+    logLevel?: T;
+    timestamp?: T;
+    className?: T;
+    methodName?: T;
+    fileName?: T;
+    filePath?: T;
   }
 
   export interface Style {
-    colors?: Elements;
-    backgrounds?: Elements;
-    effects?: Elements;
+    colors?: Elements<Enums.TextColor>;
+    backgrounds?: Elements<Enums.BgColor>;
+    effects?: Elements<Enums.TextEffect>;
   }
 
   export interface Styles {
     // Default: false
     disabled?: boolean;
+    common?: Style;
     [level: string]: Style|boolean;
   }
 }

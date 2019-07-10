@@ -23,11 +23,20 @@ export class TextService {
       return '';
     }
     const textColor = this.optionService
-      .getFromOptions(`styles[${logLevel}].colors.${fieldName}`) || '';
+      .getFromOptions(`styles[${logLevel}].colors.${fieldName}`)
+      || this.optionService
+      .getFromOptions(`styles['common'].colors.${fieldName}`)
+      || '';
     const textBg = this.optionService
-      .getFromOptions(`styles[${logLevel}].backgrounds.${fieldName}`) || '';
+      .getFromOptions(`styles[${logLevel}].backgrounds.${fieldName}`)
+      || this.optionService
+      .getFromOptions(`styles['common'].backgrounds.${fieldName}`)
+      || '';
     const textEffect = this.optionService
-      .getFromOptions(`styles[${logLevel}].effects.${fieldName}`) || '';
+      .getFromOptions(`styles[${logLevel}].effects.${fieldName}`)
+      || this.optionService
+      .getFromOptions(`styles['common'].effects.${fieldName}`)
+      || '';
     return `${textColor}${textBg}${textEffect}`;
   }
 
