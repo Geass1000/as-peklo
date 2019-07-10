@@ -7,14 +7,14 @@ import { DefaultOptions } from './logger.options';
 import { LoggerService } from './logger.service';
 import { MessageService } from './message.service';
 import { OptionService } from './option.service';
-import { TextService } from './text.service';
+import { StyleService } from './style.service';
 
 @Nest.Module({
   providers: [
     LoggerService,
     OptionService,
     MessageService,
-    TextService,
+    StyleService,
     LoggerUtil,
     {
       provide: Constants.DI.DefaultLoggerOptions,

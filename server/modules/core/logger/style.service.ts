@@ -6,7 +6,7 @@ import { Interfaces, Constants, Enums } from './shared';
 import { OptionService } from './option.service';
 
 @Nest.Injectable({})
-export class TextService {
+export class StyleService {
   private stylesAreDisabled: boolean;
   private calculatedStyles: Interfaces.Options.Style[] = [];
 
