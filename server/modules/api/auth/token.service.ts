@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import * as User from '../user';
 import * as Shared from './../../../../shared';
 
-import * as Enums from './shared/auth.enums';
+import * as Exceptions from './../../../core/exceptions';
 
 @Nest.Injectable()
 export class TokenService {
@@ -117,7 +117,7 @@ export class TokenService {
     }
 
     return await this.userModel.addOne({
-      roles: [ Enums.Roles.User, ],
+      roles: [ Shared.Enums.Auth.Roles.User, ],
       ...newSocialData,
     });
   }
