@@ -1,21 +1,22 @@
 import * as Nest from '@nestjs/common';
 import * as _ from 'lodash';
 
-import { FacebookGuard } from './guards/facebook.guard';
-import { GoogleGuard } from './guards/google.guard';
-import { VkontakteGuard } from './guards/vkontakte.guard';
+import {
+  FacebookGuard,
+  GoogleGuard,
+  VkontakteGuard,
+} from './guards';
 
-import * as Decorators from '../../../core/decorators';
-import { ResultInterceptor } from '../../../core/interceptors/result.interceptor';
+import * as Shared from './../../../../shared';
+import * as Core from '../../../core';
 
 import { TokenService } from './token.service';
 import { AuthService } from './auth.service';
 
-import * as Constants from './shared/auth.constants';
-import * as Shared from './../../../../shared';
+import { Constants } from './shared';
 
-@Nest.UseInterceptors(ResultInterceptor)
-@Decorators.APIController(1, 'auth')
+@Nest.UseInterceptors(Core.Interceptorrs.ResultInterceptor)
+@Core.Decorators.APIController(1, 'auth')
 export class AuthController {
   constructor (
     private tokenService: TokenService,
@@ -48,7 +49,7 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Facebook.SignIn)
   public async facebookSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Decorators.User() profile: any,
+    @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Facebook,
@@ -72,7 +73,7 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Google.SignIn)
   public async googleSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Decorators.User() profile: any,
+    @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Google,
@@ -96,7 +97,7 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Vkontakte.SignIn)
   public async vkontakteSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Decorators.User() profile: any,
+    @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     return this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Vkontakte,

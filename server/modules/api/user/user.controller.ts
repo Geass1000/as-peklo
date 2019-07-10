@@ -3,11 +3,8 @@ import * as Nest from '@nestjs/common';
 import { Types } from 'mongoose';
 import * as _ from 'lodash';
 
-import * as Decorators from '../../../core/decorators';
-import { ResultInterceptor } from '../../../core/interceptors/result.interceptor';
-import * as Exceptions from './../../../core/exceptions';
-
 import * as Shared from '../../../../shared';
+import * as Core from '../../../core';
 import * as Auth from '../auth';
 
 import { socialPartOfUserSchema } from './user.schema';
@@ -15,8 +12,8 @@ import { UserModel } from './user.model';
 import { Interfaces } from './shared';
 
 @Nest.UseGuards(Auth.Guards.JWTGuard)
-@Nest.UseInterceptors(ResultInterceptor)
-@Decorators.APIController(1, 'user')
+@Nest.UseInterceptors(Core.Interceptorrs.ResultInterceptor)
+@Core.Decorators.APIController(1, 'user')
 export class UserController {
 
   constructor (private userModel: UserModel) {}
@@ -28,7 +25,7 @@ export class UserController {
   ): Promise<Shared.Interfaces.User.Social[]> {
     if (_.isNil(userId)) {
       // Status: 400
-      throw new Exceptions.BadRequestException(`User ID not defined`);
+      throw new Core.Exceptions.BadRequestException(`User ID not defined`);
     }
 
     // Gets names of social fields
@@ -62,7 +59,7 @@ export class UserController {
 
     if (_.isUndefined(aggregateData)) {
       // Status: 500
-      throw new Exceptions.InternalServerErrorException(`User not found`);
+      throw new Core.Exceptions.InternalServerErrorException(`User not found`);
     }
 
     return _.map(socialNames, (socialName) => {

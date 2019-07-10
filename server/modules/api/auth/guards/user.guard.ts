@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import * as Shared from '../../../../../shared';
-import * as Exceptions from '../../../../core/exceptions';
+import * as Core from '../../../../core';
 
 import { Constants } from '../shared';
 
@@ -27,11 +27,11 @@ export class UserGuard implements Nest.CanActivate {
     const user: Shared.Interfaces.Auth.AccessToken.Data = request.user;
 
     if (_.isNil(user) || !_.isString(user.userId) || !_.isArray(user.roles)) {
-      throw new Exceptions.InternalServerErrorException(`User not assigned to request`);
+      throw new Core.Exceptions.InternalServerErrorException(`User not assigned to request`);
     }
 
     if (!_.isString(user.userId)) {
-      throw new Exceptions.InternalServerErrorException(`User has no 'User ID' property`);
+      throw new Core.Exceptions.InternalServerErrorException(`User has no 'User ID' property`);
     }
 
     if (user.userId === userId) {
@@ -39,7 +39,7 @@ export class UserGuard implements Nest.CanActivate {
     }
 
     if (!_.isArray(user.roles)) {
-      throw new Exceptions.InternalServerErrorException(`User has no 'Roles' property`);
+      throw new Core.Exceptions.InternalServerErrorException(`User has no 'Roles' property`);
     }
 
     return this.hasRole(user.roles, roles);

@@ -3,10 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 
 import * as _ from 'lodash';
 
-import * as User from '../user';
 import * as Shared from './../../../../shared';
-
-import * as Exceptions from './../../../core/exceptions';
+import * as Core from './../../../core';
+import * as User from '../user';
 
 @Nest.Injectable()
 export class TokenService {
@@ -24,7 +23,7 @@ export class TokenService {
 
     if (_.isNull(tokenData)) {
       // Status: 400
-      throw new Exceptions.BadRequestException(`Token has invalid format`);
+      throw new Core.Exceptions.BadRequestException(`Token has invalid format`);
     }
 
     // Get user ID from token data
@@ -32,7 +31,7 @@ export class TokenService {
 
     if (_.isNil(userId)) {
       // Status: 422
-      throw new Exceptions.UnprocessableEntityException(`Token has invalid user ID`);
+      throw new Core.Exceptions.UnprocessableEntityException(`Token has invalid user ID`);
     }
 
     // Get user by user ID from Database
@@ -40,7 +39,7 @@ export class TokenService {
 
     if (_.isNil(user)) {
       // Status: 500
-      throw new Exceptions.InternalServerErrorException(`User (${userId} not found)`);
+      throw new Core.Exceptions.InternalServerErrorException(`User (${userId} not found)`);
     }
 
     // Create new token for user
@@ -100,7 +99,7 @@ export class TokenService {
 
     if (existingUser && !_.isNil(userId) && _.toString(existingUser._id) !== userId) {
       // Status: 500
-      throw new Exceptions.InternalServerErrorException('User is already registred');
+      throw new Core.Exceptions.InternalServerErrorException('User is already registred');
     }
 
     if (existingUser) {
