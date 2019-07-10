@@ -7,9 +7,11 @@ export const DefaultOptions: Interfaces.Options = {
     timestamp: `YYYY.MM.DD-HH:mm:ss`
   },
   styles: {
+    disabled: false,
     [`${Enums.LogLevel.Info}`]: {
       colors: {
         logLevel: Enums.TextColor.Green,
+        message: Enums.TextColor.White,
       },
     },
     [`${Enums.LogLevel.Error}`]: {

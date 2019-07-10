@@ -90,8 +90,15 @@ export class MessageService {
 
   public prepareMessages (logLevel: Enums.LogLevel, messages: any[]): string[] {
     const styleMessage = this.textService.calculateStyle(logLevel, 'message');
+    const stylesAreDisabled = this.optionService.getFromOptions('styles.disabled');
+
     const result = _.map(messages, (message, index) => {
       const preparedMessage = this.prepareMessage(message, index);
+
+      if (stylesAreDisabled) {
+        return preparedMessage;
+      }
+
       const tbeMessage = _.chain(preparedMessage)
         .split('\n')
         .map((part) => this.textService.useStyle(part, styleMessage))

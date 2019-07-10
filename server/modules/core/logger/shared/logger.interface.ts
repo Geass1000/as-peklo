@@ -45,7 +45,9 @@ export namespace Options {
   }
 
   export interface Styles {
-    [level: string]: Style;
+    // Default: false
+    disabled?: boolean;
+    [level: string]: Style|boolean;
   }
 }
 
