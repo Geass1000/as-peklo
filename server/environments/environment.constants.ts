@@ -1,3 +1,4 @@
+import { LogLevel } from '../modules/core/logger/shared/logger.enums';
 
 export namespace Environment {
   export namespace Server {
@@ -21,5 +22,9 @@ export namespace Environment {
     export const Host = `mongo-container`;
     export const Port = `27017`;
     export const Database = `gafrome`;
+  }
+
+  export namespace Logger {
+    export const Level = LogLevel.Log;
   }
 }

@@ -1,5 +1,7 @@
-import * as Enums from '../shared/enums';
 import { JwtModuleOptions } from '@nestjs/jwt';
+import { LogLevel } from '../modules/core/logger/shared/logger.enums';
+
+import * as Enums from '../shared/enums';
 
 export namespace Environment {
   export interface NatsOptions {
@@ -28,6 +30,10 @@ export namespace Environment {
   export interface Database {
     mongodb: DatabaseOpts;
   }
+
+  export interface Logger {
+    level: LogLevel;
+  }
 }
 
 export interface Environment {
@@ -36,4 +42,5 @@ export interface Environment {
   nats: Environment.NatsOptions;
   auth: Environment.Auth;
   database: Environment.Database;
+  logger: Environment.Logger;
 }

@@ -30,4 +30,7 @@ export const environment: Interfaces.Environment = {
       database: Constants.Environment.Mongodb.Database,
     },
   },
+  logger: {
+    level: Constants.Environment.Logger.Level,
+  },
 };
