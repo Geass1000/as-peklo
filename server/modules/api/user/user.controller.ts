@@ -23,6 +23,10 @@ export class UserController {
   public async getSocialsByUserId (
     @Nest.Param('id') id: string,
   ): Promise<SharedInterfaces.User.Social[]> {
+    if (_.isNil(id)) {
+      throw new Error(`User ID not defined!`);
+    }
+
     // Gets names of social fields
     const socialNames = _.keys(socialPartOfUserSchema);
 
