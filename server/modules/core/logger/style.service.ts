@@ -8,7 +8,7 @@ import { OptionService } from './option.service';
 @Nest.Injectable({})
 export class StyleService {
   private stylesAreDisabled: boolean;
-  private calculatedStyles: Interfaces.Options.Style[] = [];
+  private calculatedStyles!: Interfaces.Options.Styles;
 
   constructor (
     private optionService: OptionService,
@@ -28,12 +28,10 @@ export class StyleService {
     if (this.stylesAreDisabled) {
       return '';
     }
-    const textColor = this
-      .calculatedStyles[logLevel].colors[fieldName];
-    const textBackground = this
-      .calculatedStyles[logLevel].backgrounds[fieldName];
-    const textEffect = this
-      .calculatedStyles[logLevel].effects[fieldName];
+    const style = this.calculatedStyles[logLevel] as Interfaces.Options.Style;
+    const textColor = style.colors[fieldName];
+    const textBackground = style.backgrounds[fieldName];
+    const textEffect = style.effects[fieldName];
 
     return `${textColor}${textBackground}${textEffect}`;
   }
@@ -59,6 +57,7 @@ export class StyleService {
       'className', 'methodName', 'fileName', 'filePath',
     ];
 
+    this.calculatedStyles = {};
     _.map(logLevels, (logLevel) => {
       const levelStyles: Interfaces.Options.Style =
         _.reduce<string, Interfaces.Options.Style>(elements, (styles, element) => {
