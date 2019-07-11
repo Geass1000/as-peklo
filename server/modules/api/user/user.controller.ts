@@ -3,34 +3,34 @@ import * as Nest from '@nestjs/common';
 import { Types } from 'mongoose';
 import * as _ from 'lodash';
 
-import * as Shared from '../../../../shared';
-import * as Core from '../../../core';
 import * as Auth from '../auth';
 
-import { LoggerService } from './../../core/logger';
+import * as Gafrome from 'gafrome-core';
 
 import { socialPartOfUserSchema } from './user.schema';
 import { UserModel } from './user.model';
 import { Interfaces } from './shared';
 
 @Nest.UseGuards(Auth.Guards.JWTGuard)
-@Nest.UseInterceptors(Core.Interceptorrs.ResultInterceptor)
-@Core.Decorators.APIController(1, 'user')
+@Nest.UseInterceptors(Gafrome.Interceptorrs.ResultInterceptor)
+@Gafrome.Decorators.APIController(1, 'user')
 export class UserController {
 
   constructor (
     private userModel: UserModel,
-    private logger: LoggerService,
-  ) {}
+    private logger: Gafrome.Modules.Logger.LoggerService,
+  ) {
+    this.logger.className = 'UserController';
+  }
 
   @Nest.Get(`:userId`)
   @Auth.Decorators.UserGuard()
   public async getSocialsByUserId (
     @Nest.Param('userId') userId: string,
-  ): Promise<Shared.Interfaces.User.Social[]> {
+  ): Promise<Gafrome.Shared.Interfaces.User.Social[]> {
     if (_.isNil(userId)) {
       // Status: 400
-      const error = new Core.Exceptions.BadRequestException(`User ID not defined`);
+      const error = new Gafrome.Exceptions.BadRequestException(`User ID not defined`);
       this.logger.error(`getSocialsByUserId`, error);
       throw error;
     }
@@ -66,7 +66,7 @@ export class UserController {
 
     if (_.isUndefined(aggregateData)) {
       // Status: 500
-      const error = new Core.Exceptions.InternalServerErrorException(`User not found`);
+      const error = new Gafrome.Exceptions.InternalServerErrorException(`User not found`);
       this.logger.error(`getSocialsByUserId`, error);
       throw error;
     }

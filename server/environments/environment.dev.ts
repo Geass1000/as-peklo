@@ -1,9 +1,9 @@
-import * as Enums from '../shared/enums';
+import * as Gafrome from 'gafrome-core';
 import * as Constants from './environment.constants';
 import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = {
-  mode: Enums.Environment.Development,
+  mode: Gafrome.Shared.Enums.Environment.Environment.Development,
   server: {
     port: Constants.Environment.Server.Port,
     domain: Constants.Environment.Server.Domain,

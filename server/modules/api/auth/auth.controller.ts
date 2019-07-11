@@ -7,22 +7,19 @@ import {
   VkontakteGuard,
 } from './guards';
 
-import * as Shared from './../../../../shared';
-import * as Core from '../../../core';
-
-import { LoggerService } from './../../core/logger';
+import * as Gafrome from 'gafrome-core';
 import { TokenService } from './token.service';
 import { AuthService } from './auth.service';
 
 import { Constants } from './shared';
 
-@Nest.UseInterceptors(Core.Interceptorrs.ResultInterceptor)
-@Core.Decorators.APIController(1, 'auth')
+@Nest.UseInterceptors(Gafrome.Interceptorrs.ResultInterceptor)
+@Gafrome.Decorators.APIController(1, 'auth')
 export class AuthController {
   constructor (
     private tokenService: TokenService,
     private authService: AuthService,
-    private logger: LoggerService,
+    private logger: Gafrome.Modules.Logger.LoggerService,
   ) {
     this.logger.className = `AuthController`;
   }
@@ -34,7 +31,7 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Auth.RefreshToken)
   public async refreshToken (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+  ): Promise<Gafrome.Shared.Interfaces.Auth.AccessToken.Type> {
     const token = await this.tokenService.refreshAccessToken(authHeader);
     this.logger.info(`refreshToken`, `Generated token -`, token);
     return token;
@@ -46,7 +43,7 @@ export class AuthController {
 
   @Nest.Post(Constants.Routes.Facebook.Redirect)
   public facebookRedirectURI (
-    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+    @Nest.Body() data: Gafrome.Shared.Interfaces.Auth.RedirectOptions,
   ): string {
     const redirectLink = this.authService.getFacebookRedirect(data);
     this.logger.info(`facebookRedirectURI`, `Generated link -`, redirectLink);
@@ -57,10 +54,10 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Facebook.SignIn)
   public async facebookSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Core.Decorators.User() profile: any,
-  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+    @Gafrome.Decorators.User() profile: any,
+  ): Promise<Gafrome.Shared.Interfaces.Auth.AccessToken.Type> {
     const token = await this.tokenService.createAccessToken(
-      Shared.Enums.User.SocialProvider.Facebook,
+      Gafrome.Shared.Enums.User.SocialProvider.Facebook,
       authHeader,
       profile,
     );
@@ -74,7 +71,7 @@ export class AuthController {
 
   @Nest.Post(Constants.Routes.Google.Redirect)
   public googleRedirectURI (
-    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+    @Nest.Body() data: Gafrome.Shared.Interfaces.Auth.RedirectOptions,
   ): string {
     const redirectLink = this.authService.getGoogleRedirect(data);
     this.logger.info(`googleRedirectURI`, `Generated link -`, redirectLink);
@@ -85,10 +82,10 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Google.SignIn)
   public async googleSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Core.Decorators.User() profile: any,
-  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+    @Gafrome.Decorators.User() profile: any,
+  ): Promise<Gafrome.Shared.Interfaces.Auth.AccessToken.Type> {
     const token = await this.tokenService.createAccessToken(
-      Shared.Enums.User.SocialProvider.Google,
+      Gafrome.Shared.Enums.User.SocialProvider.Google,
       authHeader,
       profile,
     );
@@ -102,7 +99,7 @@ export class AuthController {
 
   @Nest.Post(Constants.Routes.Vkontakte.Redirect)
   public vkontakteRedirectURI (
-    @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
+    @Nest.Body() data: Gafrome.Shared.Interfaces.Auth.RedirectOptions,
   ): string {
     const redirectLink = this.authService.getVkontakteRedirect(data);
     this.logger.info(`vkontakteRedirectURI`, `Generated link -`, redirectLink);
@@ -113,10 +110,10 @@ export class AuthController {
   @Nest.Get(Constants.Routes.Vkontakte.SignIn)
   public async vkontakteSignIn (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
-    @Core.Decorators.User() profile: any,
-  ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
+    @Gafrome.Decorators.User() profile: any,
+  ): Promise<Gafrome.Shared.Interfaces.Auth.AccessToken.Type> {
     const token = await this.tokenService.createAccessToken(
-      Shared.Enums.User.SocialProvider.Vkontakte,
+      Gafrome.Shared.Enums.User.SocialProvider.Vkontakte,
       authHeader,
       profile,
     );

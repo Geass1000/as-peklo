@@ -5,7 +5,7 @@ import { OAuthStrategyHandler } from './oauth-strategy.handler';
 
 import * as Constants from '../shared/auth.constants';
 import * as Interfaces from '../shared/auth.interfaces';
-import * as Shared from './../../../../../shared';
+import * as Gafrome from 'gafrome-core';
 
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-facebook';
@@ -22,6 +22,6 @@ export class FacebookStrategy extends PassportStrategy(Strategy) {
       clientSecret: config.clientSecret,
       callbackURL: config.oauthRedirectURL,
       profileFields: [ 'id', 'email' ],
-    }, OAuthStrategyHandler(Shared.Enums.User.SocialProvider.Google));
+    }, OAuthStrategyHandler(Gafrome.Shared.Enums.User.SocialProvider.Google));
   }
 }

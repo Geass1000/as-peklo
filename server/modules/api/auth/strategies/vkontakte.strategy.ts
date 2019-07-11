@@ -5,7 +5,7 @@ import { OAuthStrategyHandler } from './oauth-strategy.handler';
 
 import * as Constants from '../shared/auth.constants';
 import * as Interfaces from '../shared/auth.interfaces';
-import * as Shared from './../../../../../shared';
+import * as Gafrome from 'gafrome-core';
 
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-vkontakte';
@@ -24,7 +24,7 @@ export class VkontakteStrategy extends PassportStrategy(Strategy) {
     }, (accessToken: string, refreshToken: string, params: any, profile: any, verified: Function) => {
       const newProfile = { ...profile, };
       newProfile.emails = [ { value: params.email } ];
-      return OAuthStrategyHandler(Shared.Enums.User.SocialProvider.Vkontakte)
+      return OAuthStrategyHandler(Gafrome.Shared.Enums.User.SocialProvider.Vkontakte)
         (accessToken, refreshToken, newProfile, verified);
     });
   }

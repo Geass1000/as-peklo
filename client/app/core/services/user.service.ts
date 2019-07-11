@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User, API } from '../../../../shared/interfaces';
+import { User, API } from 'gafrome-core/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',

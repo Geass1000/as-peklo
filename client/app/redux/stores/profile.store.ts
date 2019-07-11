@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import * as Interfaces from '../core/redux.interfaces';
 
 import * as Events from '../events';
-import { User } from '../../../../shared/interfaces';
+import { User } from 'gafrome-core/shared/interfaces';
 
 export interface Interface {
   id: string;
