@@ -6,8 +6,7 @@ import { environment } from '../../../../environments/environment';
 
 import { TokenService } from '../token.service';
 
-import * as Interfaces from '../shared/auth.interfaces';
-import * as Shared from './../../../../../shared';
+import * as Gafrome from 'gafrome-core';
 
 @Nest.Injectable()
 export class JWTStrategy extends PassportStrategy(Strategy) {
@@ -18,7 +17,7 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  public async validate (data: Shared.Interfaces.Auth.AccessToken.Data, done: Function) {
+  public async validate (data: Gafrome.Shared.Interfaces.Auth.AccessToken.Data, done: Function) {
     const isValid = await this.tokenService.validateAccessToken(data);
 
     if (!isValid) {

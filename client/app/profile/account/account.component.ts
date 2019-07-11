@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 
 import * as Constants from '../../shared/constants';
 
-import * as Shared from '../../../../shared';
+import * as Shared from 'gafrome-core/shared';
 
 import { AuthService } from './../../core/auth/auth.service';
 

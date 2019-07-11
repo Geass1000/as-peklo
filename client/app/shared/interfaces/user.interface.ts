@@ -1,7 +1,7 @@
-import { Enums } from './../../../../shared';
+import { User } from 'gafrome-core/shared/enums';
 
 export interface Social {
-  provider: Enums.User.SocialProvider;
+  provider: User.SocialProvider;
   icon: string;
   label: string;
 }

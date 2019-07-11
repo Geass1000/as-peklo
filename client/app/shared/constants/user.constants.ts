@@ -1,24 +1,24 @@
 import { Social } from './../interfaces/user.interface';
-import { Enums } from './../../../../shared';
+import { User } from 'gafrome-core/shared/enums';
 
 export const Socials: Social[] = [
   {
-    provider: Enums.User.SocialProvider.Google,
+    provider: User.SocialProvider.Google,
     icon: 'google-plus-g',
     label: `Google+`,
   },
   {
-    provider: Enums.User.SocialProvider.Facebook,
+    provider: User.SocialProvider.Facebook,
     icon: 'facebook-f',
     label: `Facebook`,
   },
   {
-    provider: Enums.User.SocialProvider.Twitter,
+    provider: User.SocialProvider.Twitter,
     icon: 'twitter',
     label: `Twitter`,
   },
   {
-    provider: Enums.User.SocialProvider.Vkontakte,
+    provider: User.SocialProvider.Vkontakte,
     icon: 'vk',
     label: `Vkontakte`,
   },

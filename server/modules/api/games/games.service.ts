@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { Games } from './shared/games.interfaces';
 
 import * as DTO from './shared/games.dto';
-import * as Request from '../../core/request';
+import * as Request from 'gafrome-core/modules/request';
 
 type ContractId = string;
 type SId = string;

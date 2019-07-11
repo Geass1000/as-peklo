@@ -6,7 +6,7 @@ import { ActionBase } from './../core/action.base';
 import * as Events from '../events';
 import * as Interfaces from '../core/redux.interfaces';
 
-import { User } from '../../../../shared/interfaces';
+import { User } from 'gafrome-core/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',

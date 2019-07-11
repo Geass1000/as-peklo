@@ -1,12 +1,12 @@
 import { Document } from 'mongoose';
 
-import * as SharedInterfaces from '../../../../../shared/interfaces';
+import * as Gafrome from 'gafrome-core';
 
 export namespace User {
   export interface SocialPart {
-    google?: SharedInterfaces.User.SocialCreds;
-    facebook?: SharedInterfaces.User.SocialCreds;
-    vkontakte?: SharedInterfaces.User.SocialCreds;
+    google?: Gafrome.Shared.Interfaces.User.SocialCreds;
+    facebook?: Gafrome.Shared.Interfaces.User.SocialCreds;
+    vkontakte?: Gafrome.Shared.Interfaces.User.SocialCreds;
     [key: string]: any;
   }
 }
