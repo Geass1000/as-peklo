@@ -3,7 +3,7 @@ import * as Constants from './environment.constants';
 import * as Interfaces from './environment.interfaces';
 
 export const environment: Interfaces.Environment = {
-  mode: Gafrome.Shared.Enums.Environment.Environment.Production,
+  mode: Gafrome.Shared.Enums.Environment.Mode.Production,
   server: {
     port: +process.env.PORT || Constants.Environment.Server.Port,
     domain: process.env.DOMAIN ||  Constants.Environment.Server.Domain,

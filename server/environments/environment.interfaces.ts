@@ -31,7 +31,7 @@ export namespace Environment {
 }
 
 export interface Environment {
-  mode: Gafrome.Shared.Enums.Environment.Environment;
+  mode: Gafrome.Shared.Enums.Environment.Mode;
   server: Environment.Server;
   nats: Environment.NatsOptions;
   auth: Environment.Auth;
