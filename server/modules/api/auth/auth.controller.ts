@@ -10,6 +10,7 @@ import {
 import * as Shared from './../../../../shared';
 import * as Core from '../../../core';
 
+import { LoggerService } from './../../core/logger';
 import { TokenService } from './token.service';
 import { AuthService } from './auth.service';
 
@@ -21,7 +22,10 @@ export class AuthController {
   constructor (
     private tokenService: TokenService,
     private authService: AuthService,
-  ) {}
+    private logger: LoggerService,
+  ) {
+    this.logger.className = `AuthController`;
+  }
 
   /**
    * AUTH
@@ -31,7 +35,9 @@ export class AuthController {
   public async refreshToken (
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
-    return this.tokenService.refreshAccessToken(authHeader);
+    const token = await this.tokenService.refreshAccessToken(authHeader);
+    this.logger.info(`refreshToken`, `Generated token -`, token);
+    return token;
   }
 
   /**
@@ -42,7 +48,9 @@ export class AuthController {
   public facebookRedirectURI (
     @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
   ): string {
-    return this.authService.getFacebookRedirect(data);
+    const redirectLink = this.authService.getFacebookRedirect(data);
+    this.logger.info(`facebookRedirectURI`, `Generated link -`, redirectLink);
+    return redirectLink;
   }
 
   @Nest.UseGuards(FacebookGuard)
@@ -51,11 +59,13 @@ export class AuthController {
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
-    return this.tokenService.createAccessToken(
+    const token = await this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Facebook,
       authHeader,
       profile,
     );
+    this.logger.info(`facebookSignIn`, `Generated token -`, token);
+    return token;
   }
 
   /**
@@ -66,7 +76,9 @@ export class AuthController {
   public googleRedirectURI (
     @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
   ): string {
-    return this.authService.getGoogleRedirect(data);
+    const redirectLink = this.authService.getGoogleRedirect(data);
+    this.logger.info(`googleRedirectURI`, `Generated link -`, redirectLink);
+    return redirectLink;
   }
 
   @Nest.UseGuards(GoogleGuard)
@@ -75,11 +87,13 @@ export class AuthController {
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
-    return this.tokenService.createAccessToken(
+    const token = await this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Google,
       authHeader,
       profile,
     );
+    this.logger.info(`googleSignIn`, `Generated token -`, token);
+    return token;
   }
 
   /**
@@ -90,7 +104,9 @@ export class AuthController {
   public vkontakteRedirectURI (
     @Nest.Body() data: Shared.Interfaces.Auth.RedirectOptions,
   ): string {
-    return this.authService.getVkontakteRedirect(data);
+    const redirectLink = this.authService.getVkontakteRedirect(data);
+    this.logger.info(`vkontakteRedirectURI`, `Generated link -`, redirectLink);
+    return redirectLink;
   }
 
   @Nest.UseGuards(VkontakteGuard)
@@ -99,10 +115,12 @@ export class AuthController {
     @Nest.Headers(Constants.Header.Authorization) authHeader: string,
     @Core.Decorators.User() profile: any,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
-    return this.tokenService.createAccessToken(
+    const token = await this.tokenService.createAccessToken(
       Shared.Enums.User.SocialProvider.Vkontakte,
       authHeader,
       profile,
     );
+    this.logger.info(`vkontakteSignIn`, `Generated token -`, token);
+    return token;
   }
 }

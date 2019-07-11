@@ -7,6 +7,8 @@ import * as Shared from '../../../../shared';
 import * as Core from '../../../core';
 import * as Auth from '../auth';
 
+import { LoggerService } from './../../core/logger';
+
 import { socialPartOfUserSchema } from './user.schema';
 import { UserModel } from './user.model';
 import { Interfaces } from './shared';
@@ -16,7 +18,10 @@ import { Interfaces } from './shared';
 @Core.Decorators.APIController(1, 'user')
 export class UserController {
 
-  constructor (private userModel: UserModel) {}
+  constructor (
+    private userModel: UserModel,
+    private logger: LoggerService,
+  ) {}
 
   @Nest.Get(`:userId`)
   @Auth.Decorators.UserGuard()
@@ -25,7 +30,9 @@ export class UserController {
   ): Promise<Shared.Interfaces.User.Social[]> {
     if (_.isNil(userId)) {
       // Status: 400
-      throw new Core.Exceptions.BadRequestException(`User ID not defined`);
+      const error = new Core.Exceptions.BadRequestException(`User ID not defined`);
+      this.logger.error(`getSocialsByUserId`, error);
+      throw error;
     }
 
     // Gets names of social fields
@@ -59,11 +66,15 @@ export class UserController {
 
     if (_.isUndefined(aggregateData)) {
       // Status: 500
-      throw new Core.Exceptions.InternalServerErrorException(`User not found`);
+      const error = new Core.Exceptions.InternalServerErrorException(`User not found`);
+      this.logger.error(`getSocialsByUserId`, error);
+      throw error;
     }
 
-    return _.map(socialNames, (socialName) => {
+    const userSocials = _.map(socialNames, (socialName) => {
       return { provider: socialName, creds: aggregateData[socialName], };
     });
+    this.logger.info(`getSocialsByUserId`, `User (${userId}) Socials`, userSocials);
+    return userSocials;
   }
 }

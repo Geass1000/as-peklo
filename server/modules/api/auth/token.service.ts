@@ -7,39 +7,53 @@ import * as Shared from './../../../../shared';
 import * as Core from './../../../core';
 import * as User from '../user';
 
+import { LoggerService } from './../../core/logger';
+
 @Nest.Injectable()
 export class TokenService {
 
   constructor (
     private readonly jwtService: JwtService,
     private readonly userModel: User.UserModel,
-  ) {}
+    private logger: LoggerService,
+  ) {
+    this.logger.className = 'TokenService';
+  }
 
   public async refreshAccessToken (
     authHeader: string,
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     // Validate token (correct decoding) without expired time
     const tokenData = this.getTokenDataFromAuthHeader(authHeader);
+    this.logger.debug(`refreshAccessToken`, `Token Data`, tokenData);
 
     if (_.isNull(tokenData)) {
       // Status: 400
-      throw new Core.Exceptions.BadRequestException(`Token has invalid format`);
+      const error = new Core.Exceptions.BadRequestException(`Token has invalid format`);
+      this.logger.error(`refreshAccessToken`, error);
+      throw error;
     }
 
     // Get user ID from token data
     const userId = tokenData.userId;
+    this.logger.debug(`refreshAccessToken`, `User ID`, userId);
 
     if (_.isNil(userId)) {
       // Status: 422
-      throw new Core.Exceptions.UnprocessableEntityException(`Token has invalid user ID`);
+      const error = new Core.Exceptions.UnprocessableEntityException(`Token has invalid user ID`);
+      this.logger.error(`refreshAccessToken`, error);
+      throw error;
     }
 
     // Get user by user ID from Database
     const user = await this.userModel.getById(userId);
+    this.logger.debug(`refreshAccessToken`, `User from database`, user);
 
     if (_.isNil(user)) {
       // Status: 500
-      throw new Core.Exceptions.InternalServerErrorException(`User (${userId} not found)`);
+      const error = new Core.Exceptions.InternalServerErrorException(`User (${userId}) not found`);
+      this.logger.error(`refreshAccessToken`, error);
+      throw error;
     }
 
     // Create new token for user
@@ -53,8 +67,10 @@ export class TokenService {
   ): Promise<Shared.Interfaces.Auth.AccessToken.Type> {
     const tokenData = this.getTokenDataFromAuthHeader(authHeader);
     const userId =  _.get(tokenData, 'userId', null);
+    this.logger.debug(`createAccessToken`, `User ID`, userId);
 
     const user = await this.getUserByOAuthProfile(provider, userId, profile);
+    this.logger.debug(`createAccessToken`, `User from database`, user);
 
     return this.createJWTToken(user);
   }
@@ -99,7 +115,9 @@ export class TokenService {
 
     if (existingUser && !_.isNil(userId) && _.toString(existingUser._id) !== userId) {
       // Status: 500
-      throw new Core.Exceptions.InternalServerErrorException('User is already registred');
+      const error = new Core.Exceptions.InternalServerErrorException('User is already registred');
+      this.logger.error(`getUserByOAuthProfile`, error);
+      throw error;
     }
 
     if (existingUser) {
