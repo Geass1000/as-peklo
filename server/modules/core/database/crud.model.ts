@@ -2,6 +2,11 @@ import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
 import { Model, Document, DocumentQuery } from 'mongoose';
 
+import { DatabaseException } from './exceptions/database.exception';
+
+import { Enums } from './shared';
+import { LoggerService } from '../logger';
+
 export class CRUDModel<IModel, IModelDoc extends Document> {
   public className: string = 'CRUDModel';
   public model: Model<IModelDoc>;
@@ -9,8 +14,9 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
   /**
    * @constructor
    */
-  constructor() {
-  }
+  constructor(
+    protected logger: LoggerService,
+  ) {}
 
   /**
    * Returns the list of documents by specific aggregation condition.
@@ -60,9 +66,8 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     id: string,
     asPromise: boolean = true,
   ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
-    if (!_.isString(id) || !id) {
-      throw new Error(`${this.className} - getById: ID is required!`);
-    }
+    this.checkDocumentId(id, `getById`, Enums.ExceptionType.Find);
+
     const query = this.model.findOne({ _id: id });
     return this.returnValue(query, asPromise);
   }
@@ -90,7 +95,12 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     asPromise: boolean = true,
   ): Bluebird<IModelDoc> {
     if (!obj) {
-      throw new Error(`${this.className} - addOne: Object is required!`);
+      const error = new DatabaseException(
+        `Item Data is required`,
+        Enums.ExceptionType.Create,
+      );
+      this.logger.error(`getById`, error);
+      throw error;
     }
 
     return Bluebird.resolve(this.model.create(obj));
@@ -105,7 +115,12 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     obj: IModel[]
   ): Bluebird<IModelDoc[]> {
     if (!_.isArray(obj)) {
-      throw new Error(`${this.className} - addMany: Objects must be of type array!`);
+      const error = new DatabaseException(
+        `Item Data must be of type array`,
+        Enums.ExceptionType.Create,
+      );
+      this.logger.error(`getById`, error);
+      throw error;
     }
 
     return Bluebird.resolve(this.model.create(obj));
@@ -121,12 +136,15 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     obj: IModel,
     asPromise: boolean = true,
   ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
-    if (!_.isString(id) || !id) {
-      throw new Error(`${this.className} - updateById: ID is required!`);
-    }
+    this.checkDocumentId(id, `updateById`, Enums.ExceptionType.Update);
 
     if (!obj) {
-      throw new Error(`${this.className} - updateById: Object is required!`);
+      const error = new DatabaseException(
+        `Item Data is required`,
+        Enums.ExceptionType.Update,
+      );
+      this.logger.error(`getById`, error);
+      throw error;
     }
 
     const query = this.model.findOneAndUpdate({
@@ -145,9 +163,7 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     id: string,
     asPromise: boolean = true,
   ): Bluebird<IModelDoc> | DocumentQuery<IModelDoc, IModelDoc, any> {
-    if (!_.isString(id) || !id) {
-      throw new Error(`${this.className} - removeById: ID is required!`);
-    }
+    this.checkDocumentId(id, `removeById`, Enums.ExceptionType.Delete);
 
     const query = this.model.findOneAndRemove({ _id: id });
     return this.returnValue(query, asPromise);
@@ -167,5 +183,21 @@ export class CRUDModel<IModel, IModelDoc extends Document> {
     asPromise: boolean,
   ): Bluebird<any> | T {
     return asPromise ? Bluebird.resolve(query.exec()) : query;
+  }
+
+  private checkDocumentId (
+    id: string,
+    methodName: string,
+    errorType: Enums.ExceptionType,
+  ): void {
+    if (_.isString(id) || !_.isNil(id)) {
+      return;
+    }
+    const error = new DatabaseException(
+      `Item ID is required and must be of type 'string'`,
+      errorType,
+    );
+    this.logger.error(methodName, error);
+    throw error;
   }
 }
