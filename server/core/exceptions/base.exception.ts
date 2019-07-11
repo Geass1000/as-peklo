@@ -12,4 +12,11 @@ export class BaseException extends HttpException {
       httpStatus,
     );
   }
+
+  public toJSON () {
+    return {
+      response: this.getResponse(),
+      status: this.getStatus(),
+    };
+  }
 }
