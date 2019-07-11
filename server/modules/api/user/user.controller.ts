@@ -12,7 +12,7 @@ import { UserModel } from './user.model';
 import { Interfaces } from './shared';
 
 @Nest.UseGuards(Auth.Guards.JWTGuard)
-@Nest.UseInterceptors(Gafrome.Interceptorrs.ResultInterceptor)
+@Nest.UseInterceptors(Gafrome.Interceptors.ResultInterceptor)
 @Gafrome.Decorators.APIController(1, 'user')
 export class UserController {
 

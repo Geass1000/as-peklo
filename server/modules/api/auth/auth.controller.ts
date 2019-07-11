@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 
 import { Constants } from './shared';
 
-@Nest.UseInterceptors(Gafrome.Interceptorrs.ResultInterceptor)
+@Nest.UseInterceptors(Gafrome.Interceptors.ResultInterceptor)
 @Gafrome.Decorators.APIController(1, 'auth')
 export class AuthController {
   constructor (
