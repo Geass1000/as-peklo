@@ -1,13 +1,13 @@
 import * as Nest from '@nestjs/common';
 import * as _ from 'lodash';
 
-import * as Core from '../../../core';
+import * as Gafrome from 'gafrome-core';
 
 import { GamesService } from './games.service';
 import { GamesHelper } from './games.helper';
 import * as DTO from './shared/games.dto';
 
-@Core.Decorators.APIController(1, 'games')
+@Gafrome.Decorators.APIController(1, 'games')
 export class GamesController {
   constructor (
     private gamesService: GamesService,
@@ -30,7 +30,7 @@ export class GamesController {
   }
 
   @Nest.Get()
-  async getGameInfo (@Core.Decorators.User() user: DTO.User): Promise<DTO.GameInfo> {
+  async getGameInfo (@Gafrome.Decorators.User() user: DTO.User): Promise<DTO.GameInfo> {
     const gameInfo = await this.gamesService.getGameInfo(user);
 
     const resourceItems = GamesHelper.getResourcesItems(gameInfo);

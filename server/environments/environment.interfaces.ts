@@ -1,7 +1,9 @@
 import { JwtModuleOptions } from '@nestjs/jwt';
-import { LogLevel } from '../modules/core/logger/shared/logger.enums';
 
-import * as Enums from '../shared/enums';
+import * as GafromeDatabase from 'gafrome-core/modules/database';
+import * as GafromeLogger from 'gafrome-core/modules/logger';
+
+import * as Gafrome from 'gafrome-core';
 
 export namespace Environment {
   export interface NatsOptions {
@@ -19,25 +21,17 @@ export namespace Environment {
     jwt: JwtModuleOptions;
   }
 
-  export interface DatabaseOpts {
-    username: string;
-    password: string;
-    host: string;
-    port: string;
-    database: string;
-  }
-
   export interface Database {
-    mongodb: DatabaseOpts;
+    mongodb: GafromeDatabase.Interfaces.DatabaseConifg;
   }
 
   export interface Logger {
-    level: LogLevel;
+    level: GafromeLogger.Enums.LogLevel;
   }
 }
 
 export interface Environment {
-  mode: Enums.Environment;
+  mode: Gafrome.Shared.Enums.Environment.Mode;
   server: Environment.Server;
   nats: Environment.NatsOptions;
   auth: Environment.Auth;

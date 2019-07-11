@@ -5,7 +5,7 @@ import { OAuthStrategyHandler } from './oauth-strategy.handler';
 
 import * as Constants from '../shared/auth.constants';
 import * as Interfaces from '../shared/auth.interfaces';
-import * as Shared from './../../../../../shared';
+import * as Gafrome from 'gafrome-core';
 
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
@@ -21,6 +21,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       clientID: config.clientId,
       clientSecret: config.clientSecret,
       callbackURL: config.oauthRedirectURL,
-    }, OAuthStrategyHandler(Shared.Enums.User.SocialProvider.Google));
+    }, OAuthStrategyHandler(Gafrome.Shared.Enums.User.SocialProvider.Google));
   }
 }

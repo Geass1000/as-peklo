@@ -1,4 +1,4 @@
-import { LogLevel } from '../modules/core/logger/shared/logger.enums';
+import * as GafromeLogger from 'gafrome-core/modules/logger';
 
 export namespace Environment {
   export namespace Server {
@@ -25,6 +25,6 @@ export namespace Environment {
   }
 
   export namespace Logger {
-    export const Level = LogLevel.Log;
+    export const Level = GafromeLogger.Enums.LogLevel.Log;
   }
 }

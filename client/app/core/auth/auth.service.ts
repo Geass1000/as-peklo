@@ -6,8 +6,7 @@ import { from, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import * as Constants from './auth.constants';
-import { API } from '../../../../shared/interfaces';
-import * as Shared from '../../../../shared';
+import { API, Auth } from 'gafrome-core/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class AuthService {
 
   public getRedirectURL (
     providerName: string,
-    redirectOpts: Shared.Interfaces.Auth.RedirectOptions,
+    redirectOpts: Auth.RedirectOptions,
   ): API.RxResult<string> {
     return this.http.post<API.Result<string>>(`${this.apiAuth}/${providerName}/redirect`, redirectOpts)
       .pipe(
@@ -74,7 +73,7 @@ export class AuthService {
    * Token logic
    */
 
-  public setToken (token: Shared.Interfaces.Auth.AccessToken.Type): void {
+  public setToken (token: Auth.AccessToken.Type): void {
     localStorage.setItem(Constants.LocalStorage.AccessToken, token);
   }
 
@@ -82,14 +81,14 @@ export class AuthService {
     localStorage.removeItem(Constants.LocalStorage.AccessToken);
   }
 
-  public getToken (): Shared.Interfaces.Auth.AccessToken.Type {
-    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
+  public getToken (): Auth.AccessToken.Type {
+    const accessToken: Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
     return accessToken;
   }
 
-  public getTokenData (): Shared.Interfaces.Auth.AccessToken.Data {
-    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
+  public getTokenData (): Auth.AccessToken.Data {
+    const accessToken: Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
 
     try {
@@ -105,7 +104,7 @@ export class AuthService {
   }
 
   public isExpired (): boolean {
-    const accessToken: Shared.Interfaces.Auth.AccessToken.Type =
+    const accessToken: Auth.AccessToken.Type =
       localStorage.getItem(Constants.LocalStorage.AccessToken);
 
     try {

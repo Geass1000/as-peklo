@@ -1,6 +1,6 @@
 import * as Nest from '@nestjs/common';
 
-import { CoreModule } from './core/core.module';
+import { CoreModule } from './core.module';
 import { APIModule } from './api/api.module';
 import { AngularUniversalModule } from './angular-universal/angular-universal.module';
 

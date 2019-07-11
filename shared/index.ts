@@ -1,7 +1,5 @@
-import * as Interfaces from './interfaces';
-import * as Enums from './enums';
+import * as Constants from './constants';
 
 export {
-  Interfaces,
-  Enums,
+  Constants,
 };
