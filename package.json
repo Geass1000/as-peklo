@@ -47,7 +47,7 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "nodemon-webpack-plugin": "^4.0.8",
     "protractor": "^5.4.2",
     "redux-devtools-extension": "^2.13.8",
